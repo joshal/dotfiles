@@ -21,6 +21,7 @@ call plug#begin(vimPluggedHome)
 Plug 'kien/ctrlp.vim'                                                      " Fuzzy file, buffer, mru, tag, etc finder
 Plug 'junegunn/fzf',
     \ { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                     " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                   " a class outline viewer for Vim
 Plug 'bling/vim-airline'                                                   " lean & mean status/tabline for vim that's light as air
@@ -38,6 +39,7 @@ call plug#end()
 " ==========================================================
 " Basic Settings
 " ==========================================================
+set nocompatible                " make vim more useful
 syntax on                       " syntax highlighing
 filetype on                     " try to detect filetypes
 filetype plugin indent on       " enable loading indent file; required for vundle
@@ -72,6 +74,11 @@ set shiftwidth=4                " how many columns text is indented with the rei
 set expandtab                   " hitting <tab> in insert mode will produce the appropriate number of spaces
 set softtabstop=4               " how many columns vim uses when you hit <tab> in insert mode
 
+""" Searching
+set ignorecase                  " perform a case-insensitive search
+set smartcase                   " use case-sensitive search if any caps used
+set hlsearch                    " search highlighting
+
 """" Messages, Info, Status
 set laststatus=2                " Always show statusline, even if only 1 window
 
@@ -85,10 +92,25 @@ set vb t_vb=
 
 " Seriously, guys. It's not like :W is bound to anything anyway.
 command! W :w
+" Save a file as root (;W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " ==========================================================
 " Plugin Settings
 " ==========================================================
+
+""" NERDTree
+" open a NERDTree automatically when vim starts up
+autocmd VimEnter * NERDTree
+" move the cursor to the file editing area and not nerdtree
+autocmd VimEnter * wincmd p
+" open a nerdtree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" use ;n to open nerdtree
+map <leader>n :NERDTreeToggle<CR>
+" close vim if nerdtree is the only window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 """ syntastic
 """ *NOTE*: linters that syntastic supports:
@@ -117,3 +139,11 @@ nmap ga <Plug>(EasyAlign)
 """ vim-go
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" go lint
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+" automatically run `golint` on `:w`
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+""" YouCompleteMe
+" map ;m to go to declaration/definition
+nnoremap <leader>m :YcmCompleter GoTo<CR>
