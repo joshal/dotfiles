@@ -34,6 +34,7 @@ Plug 'altercation/vim-colors-solarized'                                       " 
 Plug 'junegunn/vim-easy-align'                                                " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                     " git wrapper
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                           " go (golang) support for Vim
+Plug 'fisadev/vim-isort'                                                      " sort python imports
 Plug 'christoomey/vim-tmux-navigator'                                         " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe',
     \ { 'do' : vimPluggedHomeDir . '/YouCompleteMe/install.py --clang --go' } " fuzzy-search code completion
