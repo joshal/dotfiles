@@ -52,6 +52,7 @@ filetype plugin indent on       " enable loading indent file; required for vundl
 let mapleader=";"               " change the leader to be a colon vs slash
 
 """ Color scheme
+set t_Co=256
 syntax enable
 set background=dark
 colorscheme solarized
