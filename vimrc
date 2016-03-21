@@ -143,7 +143,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 0
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 "" ignore certain flake8 errors and warnings
@@ -163,7 +163,6 @@ let g:airline_theme='solarized'
 """ vim-easy-align
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
 "" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
@@ -180,3 +179,5 @@ autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 nnoremap <leader>m :YcmCompleter GoTo<CR>
 "" python to use with ycm
 let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+"" close preview window
+let g:ycm_autoclose_preview_window_after_insertion = 1
