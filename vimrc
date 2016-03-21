@@ -29,6 +29,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                        " 
 Plug 'scrooloose/syntastic'                                                   " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                      " a class outline viewer for Vim
 Plug 'bling/vim-airline'                                                      " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'                                         " themes for vim-airline plugin
 Plug 'altercation/vim-colors-solarized'                                       " precision colorscheme for the vim text editor
 Plug 'junegunn/vim-easy-align'                                                " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                     " git wrapper
@@ -156,6 +157,8 @@ let g:syntastic_python_flake8_post_args='--ignore=E221,E241,E272 --max-line-leng
 let g:airline_powerline_fonts = 1
 "" displays all buffers when there's only one tab open
 let g:airline#extensions#tabline#enabled = 1
+"" set the theme for airline
+let g:airline_theme='solarized'
 
 """ vim-easy-align
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
