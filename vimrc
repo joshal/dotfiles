@@ -116,6 +116,8 @@ let g:fzf_nvim_statusline = 0
 nnoremap <c-p> :Files<cr>
 "" ctrl+b opens fuzzy search for buffers
 nnoremap <c-b> :Buffers<cr>
+" [[B]Commits] to customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 """ ctrlp
 "" gitignore with ctrl p
