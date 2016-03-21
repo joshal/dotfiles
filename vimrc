@@ -23,9 +23,8 @@ call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
 Plug 'rking/ag.vim'                                                           " plugin for the_silver_searcher, 'ag'
-Plug 'kien/ctrlp.vim'                                                         " fuzzy file, buffer, mru, tag, etc finder
-Plug 'junegunn/fzf',
-    \ { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }             " fuzzy file search
+Plug 'junegunn/fzf.vim'                                                       " fzf + vim (a replacement for ctrl+p)
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                        " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                   " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                      " a class outline viewer for Vim
@@ -109,6 +108,12 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 """ ag.vim
 "" always start searching from your project root instead of the cwd
 let g:ag_working_path_mode = "r"
+
+""" fzf.vim
+"" disable statusline overwriting
+let g:fzf_nvim_statusline = 0
+"" ctrl+p opens fuzzy search for files
+nnoremap <c-p> :Files<cr>
 
 """ ctrlp
 "" gitignore with ctrl p
