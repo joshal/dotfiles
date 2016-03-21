@@ -86,10 +86,9 @@ set ignorecase                  " perform a case-insensitive search
 set smartcase                   " use case-sensitive search if any caps used
 set hlsearch                    " search highlighting
 
-"""" Messages, Info, Status
+""" Messages, Info, Status
 set laststatus=2                " Always show statusline, even if only 1 window
-
-" don't bell or blink
+"" don't bell or blink
 set noerrorbells
 set vb t_vb=
 
@@ -115,6 +114,8 @@ let g:ag_working_path_mode = "r"
 let g:fzf_nvim_statusline = 0
 "" ctrl+p opens fuzzy search for files
 nnoremap <c-p> :Files<cr>
+"" ctrl+b opens fuzzy search for buffers
+nnoremap <c-b> :Buffers<cr>
 
 """ ctrlp
 "" gitignore with ctrl p
@@ -152,11 +153,13 @@ let g:syntastic_check_on_wq = 0
 "" E272: multiple spaces before keyword
 let g:syntastic_python_flake8_post_args='--ignore=E221,E241,E272 --max-line-length=99'
 
+"" golang
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
 """ vim-airline
 "" automatically populate the g:airline_symbols dictionary with the powerline symbols
 let g:airline_powerline_fonts = 1
-"" displays all buffers when there's only one tab open
-let g:airline#extensions#tabline#enabled = 1
 "" set the theme for airline
 let g:airline_theme='solarized'
 
@@ -167,8 +170,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 """ vim-go
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 "" go lint
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " automatically run `golint` on `:w`
