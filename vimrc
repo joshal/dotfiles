@@ -28,6 +28,7 @@ Plug 'junegunn/fzf.vim'                                                       " 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                        " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                   " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                      " a class outline viewer for Vim
+Plug 'edkolev/tmuxline.vim'
 Plug 'bling/vim-airline'                                                      " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                                         " themes for vim-airline plugin
 Plug 'altercation/vim-colors-solarized'                                       " precision colorscheme for the vim text editor
@@ -158,6 +159,10 @@ let g:syntastic_python_flake8_post_args='--ignore=E221,E241,E272 --max-line-leng
 "" golang
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+""" tmuxline
+""
+let g:tmuxline_powerline_separators = 0
 
 """ vim-airline
 "" automatically populate the g:airline_symbols dictionary with the powerline symbols
