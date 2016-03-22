@@ -120,10 +120,6 @@ nnoremap <c-b> :Buffers<cr>
 " [[B]Commits] to customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
-""" ctrlp
-"" gitignore with ctrl p
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
 """ NERDTree
 "" open a NERDTree automatically when vim starts up
 " autocmd VimEnter * NERDTree
