@@ -126,8 +126,8 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 "" move the cursor to the file editing area and not nerdtree
 " autocmd VimEnter * wincmd p
 "" open a nerdtree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if (argc() == 0 && !exists("s:std_in")) |  execute 'NERDTree' | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if (argc() == 0 && !exists("s:std_in")) |  execute 'NERDTree' | endif
 "" use ;n to open nerdtree
 map <leader>n :NERDTreeToggle<CR>
 "" close vim if nerdtree is the only window
