@@ -93,6 +93,16 @@ set laststatus=2                " Always show statusline, even if only 1 window
 set noerrorbells
 set vb t_vb=
 
+""" Windows, splits
+"" Auto resize Vim splits to active split
+set winwidth=104
+" We have to have a winheight bigger than we want to set winminheight. But if
+" we set winheight to be huge before winminheight, the winminheight set will
+" fail
+set winheight=5
+set winminheight=5
+set winheight=999
+
 " ==========================================================
 " Mappings (non-plugin)
 " ==========================================================
@@ -101,6 +111,12 @@ set vb t_vb=
 command! W :w
 " Save a file as root (;W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" Resize panes (use arrow keys)
+nnoremap <silent> <Right> :vertical resize +5<cr>
+nnoremap <silent> <Left> :vertical resize -5<cr>
+nnoremap <silent> <Up> :resize +5<cr>
+nnoremap <silent> <Down> :resize -5<cr>
 
 " ==========================================================
 " Plugin Settings
