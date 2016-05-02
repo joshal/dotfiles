@@ -119,6 +119,13 @@ nnoremap <silent> <Up> :resize +5<cr>
 nnoremap <silent> <Down> :resize -5<cr>
 
 " ==========================================================
+" Settings (non-plugin)
+" ==========================================================
+
+" Change tab related properties for yaml files
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" ==========================================================
 " Plugin Settings
 " ==========================================================
 
