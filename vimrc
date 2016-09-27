@@ -25,6 +25,7 @@ call plug#begin(vimPluggedHomeDir)
 Plug 'rking/ag.vim'                                                           " plugin for the_silver_searcher, 'ag'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }             " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                       " fzf + vim (a replacement for ctrl+p)
+Plug 'haya14busa/incsearch.vim'                                               " incremental search
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                        " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                   " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                      " a class outline viewer for Vim
@@ -55,7 +56,7 @@ let mapleader=";"               " change the leader to be a colon vs slash
 """ Color scheme
 set t_Co=256
 syntax enable
-set background=dark
+set background=light
 colorscheme solarized
 
 set number                      " Display line numbers
@@ -125,6 +126,9 @@ nnoremap <silent> <Down> :resize -5<cr>
 " Change tab related properties for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+" Change tab related properties for groovy files
+autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
+
 " ==========================================================
 " Plugin Settings
 " ==========================================================
@@ -142,6 +146,11 @@ nnoremap <c-p> :Files<cr>
 nnoremap <c-b> :Buffers<cr>
 " [[B]Commits] to customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+""" incsearch
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 """ NERDTree
 "" open a NERDTree automatically when vim starts up
@@ -188,6 +197,8 @@ let g:tmuxline_powerline_separators = 0
 let g:airline_powerline_fonts = 1
 "" set the theme for airline
 let g:airline_theme='solarized'
+"" automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
 
 """ vim-easy-align
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -204,7 +215,5 @@ autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 """ YouCompleteMe
 "" map ;m to go to declaration/definition
 nnoremap <leader>m :YcmCompleter GoTo<CR>
-"" python to use with ycm
-let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 "" close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
