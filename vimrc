@@ -38,8 +38,7 @@ Plug 'tpope/vim-fugitive'                                                     " 
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                           " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                      " sort python imports
 Plug 'christoomey/vim-tmux-navigator'                                         " hjkl between vim split and tmux panes
-Plug 'Valloric/YouCompleteMe',                                                " fuzzy-search code completion
-    \ { 'do' : vimPluggedHomeDir . '/YouCompleteMe/install.py --clang --go --tern' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang --go --tern' }   " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
