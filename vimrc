@@ -134,6 +134,9 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Change tab related properties for groovy files
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 
+" Change tab related properties for java files
+autocmd FileType java setlocal ts=3 sts=3 sw=3 expandtab
+
 " ==========================================================
 " Plugin Settings
 " ==========================================================
