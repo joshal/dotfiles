@@ -38,8 +38,8 @@ Plug 'tpope/vim-fugitive'                                                     " 
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                           " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                      " sort python imports
 Plug 'christoomey/vim-tmux-navigator'                                         " hjkl between vim split and tmux panes
-Plug 'Valloric/YouCompleteMe',
-    \ { 'do' : vimPluggedHomeDir . '/YouCompleteMe/install.py --clang --go' } " fuzzy-search code completion
+Plug 'Valloric/YouCompleteMe',                                                " fuzzy-search code completion
+    \ { 'do' : vimPluggedHomeDir . '/YouCompleteMe/install.py --clang --go --tern' }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -108,16 +108,21 @@ set winheight=999
 " Mappings (non-plugin)
 " ==========================================================
 
-" Seriously, guys. It's not like :W is bound to anything anyway.
+" :W behaves like :w; for fat fingers
 command! W :w
 " Save a file as root (;W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+noremap <leader>W :w !sudo tee % > /dev/null<cr>
 
 " Resize panes (use arrow keys)
 nnoremap <silent> <Right> :vertical resize +5<cr>
 nnoremap <silent> <Left> :vertical resize -5<cr>
 nnoremap <silent> <Up> :resize +5<cr>
 nnoremap <silent> <Down> :resize -5<cr>
+
+" Switch buffers
+nnoremap <leader>l :bnext<cr>
+nnoremap <leader>h :bprevious<cr>
+nnoremap <leader>d :bdelete<cr>
 
 " ==========================================================
 " Settings (non-plugin)
@@ -142,8 +147,8 @@ let g:ag_working_path_mode = "r"
 let g:fzf_nvim_statusline = 0
 "" ctrl+p opens fuzzy search for files
 nnoremap <c-p> :Files<cr>
-"" ctrl+b opens fuzzy search for buffers
-nnoremap <c-b> :Buffers<cr>
+"" ctrl+a opens fuzzy search for buffers
+nnoremap <c-a> :Buffers<cr>
 " [[B]Commits] to customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
@@ -199,6 +204,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 "" automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
+" disable tmuxline extention for airline; we load our own tmux statusbar config
+let g:airline#extensions#tmuxline#enabled = 0
 
 """ vim-easy-align
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
