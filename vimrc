@@ -22,23 +22,24 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'rking/ag.vim'                                                           " plugin for the_silver_searcher, 'ag'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }             " fuzzy file search
-Plug 'junegunn/fzf.vim'                                                       " fzf + vim (a replacement for ctrl+p)
-Plug 'haya14busa/incsearch.vim'                                               " incremental search
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                        " tree explorer plugin, on demand load
-Plug 'scrooloose/syntastic'                                                   " syntax checking plugin
-Plug 'majutsushi/tagbar'                                                      " a class outline viewer for Vim
+Plug 'rking/ag.vim'                                                                 " plugin for the_silver_searcher, 'ag'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                   " fuzzy file search
+Plug 'junegunn/fzf.vim'                                                             " fzf + vim (a replacement for ctrl+p)
+Plug 'haya14busa/incsearch.vim'                                                     " incremental search
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                              " tree explorer plugin, on demand load
+Plug 'scrooloose/syntastic'                                                         " syntax checking plugin
+Plug 'majutsushi/tagbar'                                                            " a class outline viewer for Vim
 Plug 'edkolev/tmuxline.vim'
-Plug 'bling/vim-airline'                                                      " lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'                                         " themes for vim-airline plugin
-Plug 'altercation/vim-colors-solarized'                                       " precision colorscheme for the vim text editor
-Plug 'junegunn/vim-easy-align'                                                " easy-to-use Vim alignment plugin
-Plug 'tpope/vim-fugitive'                                                     " git wrapper
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                           " go (golang) support for Vim
-Plug 'fisadev/vim-isort'                                                      " sort python imports
-Plug 'christoomey/vim-tmux-navigator'                                         " hjkl between vim split and tmux panes
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang --go --tern' }   " fuzzy-search code completion
+Plug 'bling/vim-airline'                                                            " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'                                               " themes for vim-airline plugin
+Plug 'altercation/vim-colors-solarized'                                             " precision colorscheme for the vim text editor
+Plug 'junegunn/vim-easy-align'                                                      " easy-to-use Vim alignment plugin
+Plug 'tpope/vim-fugitive'                                                           " git wrapper
+Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                 " go (golang) support for Vim
+Plug 'fisadev/vim-isort'                                                            " sort python imports
+Plug 'artur-shaik/vim-javacomplete2', { 'do': 'cd libs/javavi && mvn compile' }     " java auto-completion
+Plug 'christoomey/vim-tmux-navigator'                                               " hjkl between vim split and tmux panes
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang --go --tern' }         " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -134,7 +135,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 
 " Change tab related properties for java files
-autocmd FileType java setlocal ts=3 sts=3 sw=3 expandtab
+autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
 
 " ==========================================================
 " Plugin Settings
@@ -195,6 +196,12 @@ let g:syntastic_python_flake8_post_args='--ignore=E221,E241,E272 --max-line-leng
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 
+"" java
+" Use gradle syntastic plugin (https://github.com/Scuilion/gradle-syntastic-plugin) to generate the
+" config file
+let g:syntastic_java_checkers=['javac']
+let g:syntastic_java_javac_config_file_enabled = 1
+
 """ tmuxline
 ""
 let g:tmuxline_powerline_separators = 0
@@ -220,6 +227,9 @@ nmap ga <Plug>(EasyAlign)
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " automatically run `golint` on `:w`
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+""" vim-javacomplete2
+let g:JavaComplete_GradleExecutable = './gradlew'
 
 """ YouCompleteMe
 "" map ;m to go to declaration/definition
