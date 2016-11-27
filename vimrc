@@ -82,6 +82,7 @@ set tabstop=4                   " <tab> inserts 4 spaces
 set shiftwidth=4                " how many columns text is indented with the reindent operations (<< and >>)
 set expandtab                   " hitting <tab> in insert mode will produce the appropriate number of spaces
 set softtabstop=4               " how many columns vim uses when you hit <tab> in insert mode
+set complete+=kspell            " available when spellcheck is on; ctrl+n in insert-mode to complete the word
 
 """ Searching
 set ignorecase                  " perform a case-insensitive search
@@ -128,14 +129,23 @@ nnoremap <leader>d :bdelete<cr>
 " Settings (non-plugin)
 " ==========================================================
 
-" Change tab related properties for yaml files
+" Change local properties for yaml files
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" Change tab related properties for groovy files
+" Change local properties for groovy files
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 
-" Change tab related properties for java files
+" Change local properties for java files
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
+
+" Change local properties for md files
+autocmd FileType markdown setlocal spell spelllang=en_us
+
+" Change local properties for txt files
+autocmd FileType text setlocal spell spelllang=en_us
+
+" Change local properties for gitcommit files
+autocmd FileType gitcommit setlocal spell spelllang=en_us
 
 " ==========================================================
 " Plugin Settings
