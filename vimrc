@@ -138,6 +138,9 @@ autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 " Change local properties for java files
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
 
+" Change local properties for rst files
+autocmd FileType rst setlocal spell spelllang=en_us
+
 " Change local properties for md files
 autocmd FileType markdown setlocal spell spelllang=en_us
 
