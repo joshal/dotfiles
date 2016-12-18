@@ -57,3 +57,17 @@ pyenv() {
         * ) command pyenv "$@" ;;
     esac
 }
+
+#########
+# Go
+#########
+
+export GOPATH=$HOME/Code/Go
+export GOROOT=/usr/local/opt/go/libexec
+pathappend $GOPATH/bin $GOROOT/bin
+
+#########
+# Docker
+#########
+
+eval "$(docker-machine env docker-vm)"
