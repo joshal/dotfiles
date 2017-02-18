@@ -29,9 +29,11 @@ Plug 'haya14busa/incsearch.vim'                                                 
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                              " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                         " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                            " a class outline viewer for Vim
-Plug 'edkolev/tmuxline.vim'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                 " tern based javascript editing
+Plug 'edkolev/tmuxline.vim'                                                         " tmux statusline generator
 Plug 'bling/vim-airline'                                                            " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                                               " themes for vim-airline plugin
+Plug 'chase/vim-ansible-yaml'                                                       " additional support for Ansible in vim
 Plug 'altercation/vim-colors-solarized'                                             " precision colorscheme for the vim text editor
 Plug 'junegunn/vim-easy-align'                                                      " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                           " git wrapper
@@ -122,7 +124,7 @@ nnoremap <silent> <Down> :resize -5<cr>
 
 " Switch buffers
 nnoremap <leader>l :bnext<cr>
-nnoremap <leader>h :bprevious<cr>
+nnoremap <leader>k :bprevious<cr>
 nnoremap <leader>d :bdelete<cr>
 
 " ==========================================================
@@ -149,6 +151,12 @@ autocmd FileType text setlocal spell spelllang=en_us
 
 " Change local properties for gitcommit files
 autocmd FileType gitcommit setlocal spell spelllang=en_us
+
+" Change local properties for javascript files
+autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
+
+" Change local properties for python files
+autocmd FileType python setlocal spell spelllang=en_us
 
 " ==========================================================
 " Plugin Settings
