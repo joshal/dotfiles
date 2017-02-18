@@ -8,9 +8,95 @@ if [ -f ~/.zshrc_omz ]; then
     source ~/.zshrc_omz
 fi
 
-if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
+# User configuration
+
+########
+# vim
+########
+
+alias vim='mvim -v'
+
+#########
+# fzf
+#########
+
+# Command line fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Default options for fzf
+export FZF_DEFAULT_OPTS="--reverse --inline-info"
+
+#########
+# jenv
+#########
+
+export JENV_ROOT="$HOME/.jenv"
+if which jenv > /dev/null; then
+    # initialize jenv
+    eval "$(jenv init -)"
+    # XXX: There seems to be an issue with maven where in the M2_HOME variable is set by default and
+    # pointing to a wrong location. We use the maven plugin enabled with jenv so that maven can find
+    # the JAVA_HOME variable it needs. The jenv enabled maven fails because of the wrong M2_HOME
+    # environment variable. Hence we unset it here.
+    # https://github.com/gcuisinier/jenv#plugins
+    unset M2_HOME
 fi
+
+#########
+# pyenv
+#########
+
+export PYENV_ROOT="$HOME/.pyenv"
+if which pyenv > /dev/null; then
+    pathprepend "$PYENV_ROOT/bin"
+    # initialize pyenv
+    eval "$(pyenv init -)";
+    # initialize pyenv virtualenv
+    eval "$(pyenv virtualenv-init -)"
+    # install virtualenvwrapper
+    # pyenv virtualenvwrapper
+fi
+
+# As suggested with YCM
+# https://github.com/Valloric/YouCompleteMe#i-get-fatal-python-error-pythreadstate_get-no-current-thread-on-startup
+pyenv() {
+    case $* in
+        install* ) shift 1; command env PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
+        * ) command pyenv "$@" ;;
+    esac
+}
+
+#######
+# pip
+# #####
+
+pip() {
+    case $* in
+        install* ) shift 1; command env ARCHFLAGS="-arch x86_64" LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include" pip install "$@" ;;
+        * ) command pip "$@" ;;
+    esac
+}
+
+
+#########
+# Go
+#########
+
+export GOPATH=$HOME/Code/Go
+export GOROOT=/usr/local/opt/go/libexec
+pathappend $GOPATH/bin $GOROOT/bin
+
+#########
+# Docker
+#########
+
+eval "$(docker-machine env docker-vm)"
 
 if [ -f ~/.zshrc_work ]; then
     source ~/.zshrc_work
