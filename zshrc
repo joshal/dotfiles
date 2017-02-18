@@ -54,9 +54,8 @@ fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 if which pyenv > /dev/null; then
-    pathprepend "$PYENV_ROOT/bin"
     # initialize pyenv
-    eval "$(pyenv init -)";
+    eval "$(pyenv init -)"
     # initialize pyenv virtualenv
     eval "$(pyenv virtualenv-init -)"
     # install virtualenvwrapper
