@@ -85,6 +85,7 @@ set shiftwidth=4                " how many columns text is indented with the rei
 set expandtab                   " hitting <tab> in insert mode will produce the appropriate number of spaces
 set softtabstop=4               " how many columns vim uses when you hit <tab> in insert mode
 set complete+=kspell            " available when spellcheck is on; ctrl+n in insert-mode to complete the word
+set clipboard=unnamed           " yy, D, P, etc. copy to clipboard
 
 """ Searching
 set ignorecase                  " perform a case-insensitive search
