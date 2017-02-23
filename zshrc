@@ -16,6 +16,10 @@ fi
 
 alias vim='mvim -v'
 
+if type nvim > /dev/null 2>&1; then
+    alias vim='nvim'
+fi
+
 #########
 # fzf
 #########
