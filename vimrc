@@ -258,3 +258,5 @@ let g:JavaComplete_GradleExecutable = './gradlew'
 nnoremap <leader>m :YcmCompleter GoTo<CR>
 "" close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
+"" YCM's identifier completer will also collect identifiers from tags files
+let g:ycm_collect_identifiers_from_tags_files = 1
