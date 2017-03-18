@@ -264,3 +264,5 @@ nnoremap <leader>m :YcmCompleter GoTo<CR>
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "" YCM's identifier completer will also collect identifiers from tags files
 let g:ycm_collect_identifiers_from_tags_files = 1
+"" Completion for programming language's keyword
+let g:ycm_seed_identifiers_with_syntax = 1
