@@ -224,6 +224,10 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 let g:syntastic_java_checkers=['javac']
 let g:syntastic_java_javac_config_file_enabled = 1
 
+""" tagbar
+"" open Tagbar with ;t
+nnoremap <leader>t :TagbarToggle<CR>
+
 """ tmuxline
 ""
 let g:tmuxline_powerline_separators = 0
