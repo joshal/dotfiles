@@ -41,7 +41,7 @@ Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                             
 Plug 'fisadev/vim-isort'                                                            " sort python imports
 Plug 'artur-shaik/vim-javacomplete2', { 'do': 'cd libs/javavi && mvn compile' }     " java auto-completion
 Plug 'christoomey/vim-tmux-navigator'                                               " hjkl between vim split and tmux panes
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang --go --tern' }         " fuzzy-search code completion
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang --go --tern' } " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
