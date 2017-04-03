@@ -2,17 +2,8 @@
 " System resource locations (use same .vimrc across different machines)
 " ==========================================================
 
-let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname =~# "Joshals-Home-MacBook.."
-    " home MacBook
-    let homeDir = "/Users/joshal"
-elseif hostname=~# "Joshals-Work-MacBook.."
-    " work MacBook
-    let homeDir = "/Users/joshaldaftari"
-endif
-let vimHomeDir = homeDir . "/.vim"
-let tmpDir = homeDir . "/.tmpvim"
-
+let vimHomeDir = $HOME . "/.vim"
+let tmpDir = $HOME . "/.tmpvim"
 
 " ==========================================================
 " Plugin installation with vim-plug
