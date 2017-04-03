@@ -263,9 +263,6 @@ set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " automatically run `golint` on `:w`
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
-""" vim-javacomplete2
-let g:JavaComplete_GradleExecutable = './gradlew'
-
 """ YouCompleteMe
 "" map ;m to go to declaration/definition
 nnoremap <leader>m :YcmCompleter GoTo<CR>
