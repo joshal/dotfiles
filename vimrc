@@ -160,6 +160,24 @@ autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType python setlocal spell spelllang=en_us
 
 " ==========================================================
+" Custom Functions
+" ==========================================================
+
+" Remove trailing whitespace
+" Remove unwanted spaces
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+function! StripTrailingWhitespace()
+    if !&binary && &filetype != 'diff'
+        normal mz
+        normal Hmy
+        %s/\s\+$//e
+        normal 'yz<cr>
+        normal `z
+        retab
+    endif
+endfunction
+
+" ==========================================================
 " Plugin Settings
 " ==========================================================
 
