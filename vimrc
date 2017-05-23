@@ -123,32 +123,17 @@ nnoremap <leader>d :bdelete<cr>
 " Settings (non-plugin)
 " ==========================================================
 
-" Change local properties for yaml files
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Change local properties for groovy files
-autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
-
-" Change local properties for java files
-autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
-
-" Change local properties for rst files
-autocmd FileType rst setlocal spell spelllang=en_us
-
-" Change local properties for md files
-autocmd FileType markdown setlocal spell spelllang=en_us
-
-" Change local properties for txt files
-autocmd FileType text setlocal spell spelllang=en_us
-
-" Change local properties for gitcommit files
+""" Change local settings (keep alphabetically arranged by file type)
 autocmd FileType gitcommit setlocal spell spelllang=en_us
-
-" Change local properties for javascript files
+autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
+autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
 autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
-
-" Change local properties for python files
+autocmd FileType markdown setlocal spell spelllang=en_us
 autocmd FileType python setlocal spell spelllang=en_us
+autocmd FileType rst setlocal spell spelllang=en_us
+autocmd FileType text setlocal spell spelllang=en_us
+autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " ==========================================================
 " Custom Functions
