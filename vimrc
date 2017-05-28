@@ -17,7 +17,7 @@ Plug 'rking/ag.vim'                                                             
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                   " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                             " fzf + vim (a replacement for ctrl+p)
 Plug 'haya14busa/incsearch.vim'                                                     " incremental search
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }                              " tree explorer plugin, on demand load
+Plug 'scrooloose/nerdtree'                                                          " tree explorer plugin, on demand load
 Plug 'scrooloose/syntastic'                                                         " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                            " a class outline viewer for Vim
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                 " tern based javascript editing
@@ -153,6 +153,14 @@ function! StripTrailingWhitespace()
     endif
 endfunction
 
+function! ToggleNERDTreeFind()
+    if g:NERDTree.IsOpen()
+        execute ':NERDTreeClose'
+    else
+        execute ':NERDTreeFind'
+    endif
+endfunction
+
 " ==========================================================
 " Plugin Settings
 " ==========================================================
@@ -185,7 +193,7 @@ map g/ <Plug>(incsearch-stay)
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if (argc() == 0 && !exists("s:std_in")) |  execute 'NERDTree' | endif
 "" use ;n to open nerdtree
-map <leader>n :NERDTreeToggle<CR>
+map <leader>n :call ToggleNERDTreeFind()<CR>
 "" close vim if nerdtree is the only window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
