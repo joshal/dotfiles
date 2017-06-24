@@ -1,0 +1,60 @@
+###
+# Initialize Zplug
+####
+
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+    source ~/.zplug/init.zsh && zplug update
+fi
+
+source ~/.zplug/init.zsh
+
+####
+# Functions
+####
+
+function env_powelevel9k() {
+    export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+    export POWERLEVEL9K_COLOR_SCHEME='light'
+    export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs virtualenv dir)
+    export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status)
+    export POWERLEVEL9K_PYTHON_ICON="ⓔ "
+}
+
+####
+# Plugs
+####
+
+# Let zplug manage zplug
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+zplug 'plugins/git', from:oh-my-zsh
+
+zplug 'zsh-users/zsh-completions'
+
+# Load all of the config files in oh-my-zsh.
+# This is the default behavior of oh-my-zsh, see oh-my-zsh.sh
+zplug 'lib/*', from:oh-my-zsh
+
+# Load theme file
+zplug 'bhilburn/powerlevel9k', as:theme
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+#####
+# Post-install parameters
+#####
+
+if zplug check 'bhilburn/powerlevel9k'; then
+    env_powelevel9k
+fi
+
+# Source plugins and add commands to $PATH
+zplug load

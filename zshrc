@@ -4,8 +4,8 @@ if [ -f ~/.zshrc_scripts ]; then
     source ~/.zshrc_scripts
 fi
 
-if [ -f ~/.zshrc_omz ]; then
-    source ~/.zshrc_omz
+if [ -f ~/.zshrc_zplug ]; then
+    source ~/.zshrc_zplug
 fi
 
 # User configuration
