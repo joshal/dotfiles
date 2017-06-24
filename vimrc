@@ -31,6 +31,7 @@ Plug 'tpope/vim-fugitive'                                                       
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                 " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                            " sort python imports
 Plug 'artur-shaik/vim-javacomplete2', { 'do': 'cd libs/javavi && mvn compile' }     " java auto-completion
+Plug 'dhruvasagar/vim-table-mode'                                                   " instant table creation
 Plug 'christoomey/vim-tmux-navigator'                                               " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang --go --tern' } " fuzzy-search code completion
 
