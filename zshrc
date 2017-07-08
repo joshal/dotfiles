@@ -76,8 +76,18 @@ pyenv() {
 }
 
 #######
+# rbenv
+#######
+
+export RBENV_ROOT="$HOME/.rbenv"
+if which rbenv > /dev/null; then
+    # initialize rbenv
+    eval "$(rbenv init -)"
+fi
+
+#######
 # pip
-# #####
+#######
 
 pip() {
     case $* in
