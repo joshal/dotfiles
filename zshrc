@@ -105,12 +105,6 @@ export GOPATH=$HOME/Code/Go
 export GOROOT=/usr/local/opt/go/libexec
 pathappend $GOPATH/bin $GOROOT/bin
 
-#########
-# Docker
-#########
-
-eval "$(docker-machine env docker-vm)"
-
 if [ -f ~/.zshrc_work ]; then
     source ~/.zshrc_work
 fi
