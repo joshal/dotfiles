@@ -83,7 +83,7 @@ fi
 # https://github.com/Valloric/YouCompleteMe#i-get-fatal-python-error-pythreadstate_get-no-current-thread-on-startup
 pyenv() {
     case $* in
-        install* ) shift 1; command env PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
+        install* ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
         * ) command pyenv "$@" ;;
     esac
 }
