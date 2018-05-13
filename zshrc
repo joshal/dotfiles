@@ -10,6 +10,12 @@ fi
 
 # User configuration
 
+#######
+# paths
+#######
+
+pathprepend "$(brew --prefix)/sbin"
+
 ########
 # vim
 ########
