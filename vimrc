@@ -17,6 +17,7 @@ Plug 'rking/ag.vim'                                                             
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                               " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                                         " fzf + vim (a replacement for ctrl+p)
 Plug 'haya14busa/incsearch.vim'                                                                 " incremental search
+Plug 'sbdchd/neoformat'                                                                         " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                                      " tree explorer plugin, on demand load
 Plug 'AndrewRadev/splitjoin.vim'                                                                " simplifies the transition between multiline and single-line code
 Plug 'scrooloose/syntastic'                                                                     " syntax checking plugin
@@ -26,12 +27,14 @@ Plug 'edkolev/tmuxline.vim'                                                     
 Plug 'bling/vim-airline'                                                                        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                                                           " themes for vim-airline plugin
 Plug 'chase/vim-ansible-yaml'                                                                   " additional support for Ansible in vim
+Plug '907th/vim-auto-save'                                                                      " automatically saves changes to disk without having to use :w
 Plug 'altercation/vim-colors-solarized'                                                         " precision colorscheme for the vim text editor
 Plug 'junegunn/vim-easy-align'                                                                  " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                                       " git wrapper
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                             " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                                        " sort python imports
 Plug 'artur-shaik/vim-javacomplete2', { 'do': 'cd libs/javavi && mvn compile' }                 " java auto-completion
+Plug 'jeffkreeftmeijer/vim-numbertoggle'                                                        " Toggles between hybrid and absolute line numbers automatically
 Plug 'dhruvasagar/vim-table-mode'                                                               " instant table creation
 Plug 'christoomey/vim-tmux-navigator'                                                           " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --clang --go-completer --tern' }   " fuzzy-search code completion
@@ -121,6 +124,13 @@ nnoremap <leader>l :bnext<cr>
 nnoremap <leader>k :bprevious<cr>
 nnoremap <leader>d :bdelete<cr>
 
+" neovim terminal mode
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-h> <c-\><c-n><c-w>h
+tnoremap <C-j> <c-\><c-n><c-w>j
+tnoremap <C-k> <c-\><c-n><c-w>k
+tnoremap <C-l> <c-\><c-n><c-w>l
+
 " ==========================================================
 " Settings (non-plugin)
 " ==========================================================
@@ -135,7 +145,7 @@ autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
 autocmd FileType text setlocal spell spelllang=en_us
 autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 tw=79 expandtab
 
 " ==========================================================
 " Custom Functions
