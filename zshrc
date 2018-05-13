@@ -20,6 +20,19 @@ if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
 fi
 
+########
+# direnv
+########
+
+eval "$(direnv hook zsh)"
+
+########
+# tmux
+########
+
+alias tmux='direnv exec / tmux'
+setopt complete_aliases
+
 #########
 # fzf
 #########
