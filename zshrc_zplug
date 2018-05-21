@@ -34,6 +34,7 @@ zplug 'plugins/docker-compose', from:oh-my-zsh
 zplug 'plugins/git', from:oh-my-zsh
 zplug 'plugins/minikube', from:oh-my-zsh
 zplug 'plugins/kubectl', from:oh-my-zsh
+zplug 'plugins/ssh-agent', from:oh-my-zsh
 
 zplug 'zsh-users/zsh-completions'
 
