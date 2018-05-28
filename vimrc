@@ -183,8 +183,12 @@ let g:fzf_nvim_statusline = 0
 nnoremap <c-p> :Files<cr>
 "" ctrl+a opens fuzzy search for buffers
 nnoremap <c-a> :Buffers<cr>
-" [[B]Commits] to customize the options used by 'git log':
+"" [[B]Commits] to customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+"" when fzf starts in a terminal buffer, hide the statusline of the containing buffer
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 """ incsearch
 map /  <Plug>(incsearch-forward)
