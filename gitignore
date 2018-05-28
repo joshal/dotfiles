@@ -1,0 +1,30 @@
+# ctags
+tags
+
+# syntastic
+.syntastic_javac_config
+
+# vim
+*.sw[op]
+
+# local debugging
+.venv
+jd_local
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+*.idea
+
+# MacOS
+.DS_Store
+
+# pyenv
+.python-version
+
+# eclipse.jdt.ls from YCM java completion
+.project
+.settings/
+.classpath
+bin/
