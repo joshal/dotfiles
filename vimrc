@@ -13,32 +13,31 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'rking/ag.vim'                                                               " plugin for the_silver_searcher, 'ag'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                 " fuzzy file search
-Plug 'junegunn/fzf.vim'                                                           " fzf + vim (a replacement for ctrl+p)
-Plug 'haya14busa/incsearch.vim'                                                   " incremental search
-Plug 'sbdchd/neoformat'                                                           " a (Neo)vim plugin for formatting code.
-Plug 'scrooloose/nerdtree'                                                        " tree explorer plugin, on demand load
-Plug 'AndrewRadev/splitjoin.vim'                                                  " simplifies the transition between multiline and single-line code
-Plug 'scrooloose/syntastic'                                                       " syntax checking plugin
-Plug 'majutsushi/tagbar'                                                          " a class outline viewer for Vim
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                               " tern based javascript editing
-Plug 'edkolev/tmuxline.vim'                                                       " tmux statusline generator
-Plug 'bling/vim-airline'                                                          " lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'                                             " themes for vim-airline plugin
-Plug 'chase/vim-ansible-yaml'                                                     " additional support for Ansible in vim
-Plug '907th/vim-auto-save'                                                        " automatically saves changes to disk without having to use :w
-Plug 'altercation/vim-colors-solarized'                                           " precision colorscheme for the vim text editor
-Plug 'junegunn/vim-easy-align'                                                    " easy-to-use Vim alignment plugin
-Plug 'tpope/vim-fugitive'                                                         " git wrapper
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                               " go (golang) support for Vim
-Plug 'fisadev/vim-isort'                                                          " sort python imports
-Plug 'artur-shaik/vim-javacomplete2', { 'do': 'cd libs/javavi && mvn compile' }   " java auto-completion
-Plug 'jeffkreeftmeijer/vim-numbertoggle'                                          " Toggles between hybrid and absolute line numbers automatically
-Plug 'dhruvasagar/vim-table-mode'                                                 " instant table creation
-Plug 'christoomey/vim-tmux-navigator'                                             " hjkl between vim split and tmux panes
+Plug 'rking/ag.vim'                                                                  " plugin for the_silver_searcher, 'ag'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
+Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
+Plug 'haya14busa/incsearch.vim'                                                      " incremental search
+Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
+Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
+Plug 'AndrewRadev/splitjoin.vim'                                                     " simplifies the transition between multiline and single-line code
+Plug 'scrooloose/syntastic'                                                          " syntax checking plugin
+Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                  " tern based javascript editing
+Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
+Plug 'bling/vim-airline'                                                             " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
+Plug 'chase/vim-ansible-yaml'                                                        " additional support for Ansible in vim
+Plug '907th/vim-auto-save'                                                           " automatically saves changes to disk without having to use :w
+Plug 'altercation/vim-colors-solarized'                                              " precision colorscheme for the vim text editor
+Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
+Plug 'tpope/vim-fugitive'                                                            " git wrapper
+Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                  " go (golang) support for Vim
+Plug 'fisadev/vim-isort'                                                             " sort python imports
+Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
+Plug 'dhruvasagar/vim-table-mode'                                                    " instant table creation
+Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe',
-    \{ 'do': 'python3 ./install.py --clang-completer --go-completer --tern' }     " fuzzy-search code completion
+    \ { 'do': 'python3 ./install.py --clang-comp --go-comp --java-comp --tern' }     " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -134,7 +133,7 @@ nnoremap <leader>d :bdelete<cr>
 """ Change local settings (keep alphabetically arranged by file type)
 autocmd FileType gitcommit setlocal spell spelllang=en_us
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
-autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120 expandtab omnifunc=javacomplete#Complete
+autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
 autocmd FileType python setlocal spell spelllang=en_us
@@ -231,7 +230,9 @@ let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 "" java
 " Use gradle syntastic plugin (https://github.com/Scuilion/gradle-syntastic-plugin) to generate the
 " config file
-let g:syntastic_java_checkers=['javac']
+" Explicitly disable syntastic java checkers. See,
+" https://github.com/Valloric/YouCompleteMe#java-semantic-completion
+let g:syntastic_java_checkers=[]
 let g:syntastic_java_javac_config_file_enabled = 1
 
 """ tagbar
