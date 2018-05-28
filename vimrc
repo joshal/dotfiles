@@ -126,13 +126,6 @@ nnoremap <leader>l :bnext<cr>
 nnoremap <leader>k :bprevious<cr>
 nnoremap <leader>d :bdelete<cr>
 
-" neovim terminal mode
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-h> <c-\><c-n><c-w>h
-tnoremap <C-j> <c-\><c-n><c-w>j
-tnoremap <C-k> <c-\><c-n><c-w>k
-tnoremap <C-l> <c-\><c-n><c-w>l
-
 " ==========================================================
 " Settings (non-plugin)
 " ==========================================================
