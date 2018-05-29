@@ -15,7 +15,6 @@ call plug#begin(vimPluggedHomeDir)
 " Make sure you use single quotes
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
-Plug 'haya14busa/incsearch.vim'                                                      " incremental search
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
 Plug 'AndrewRadev/splitjoin.vim'                                                     " simplifies the transition between multiline and single-line code
@@ -88,6 +87,8 @@ set clipboard=unnamed           " yy, D, P, etc. copy to clipboard
 set ignorecase                  " perform a case-insensitive search
 set smartcase                   " use case-sensitive search if any caps used
 set hlsearch                    " search highlighting
+set incsearch                   " incremental search
+set inccommand=nosplit          " do not show preview window while incremental search
 
 """ Messages, Info, Status
 set laststatus=2                " Always show statusline, even if only 1 window
@@ -203,11 +204,6 @@ command! -bang -nargs=? -complete=dir Files
 "" Customize fzf colors to match your color scheme
 let g:fzf_colors =
     \ { 'border': ['fg', 'Normal'] }
-
-""" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 """ NERDTree
 "" open a NERDTree automatically when vim starts up
