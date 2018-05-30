@@ -1,5 +1,3 @@
-export TERM="xterm-256color"
-
 if [ -f ~/.zshrc_scripts ]; then
     source ~/.zshrc_scripts
 fi

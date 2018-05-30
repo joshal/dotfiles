@@ -26,12 +26,12 @@ Plug 'bling/vim-airline'                                                        
 Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
 Plug 'chase/vim-ansible-yaml'                                                        " additional support for Ansible in vim
 Plug '907th/vim-auto-save'                                                           " automatically saves changes to disk without having to use :w
-Plug 'altercation/vim-colors-solarized'                                              " precision colorscheme for the vim text editor
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                  " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                             " sort python imports
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
+Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
 Plug 'dhruvasagar/vim-table-mode'                                                    " instant table creation
 Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe',
@@ -52,10 +52,9 @@ let mapleader=";"               " change the leader to be a colon vs slash
 set synmaxcol=128
 
 """ Color scheme
-set t_Co=256
-syntax enable
+set termguicolors
 set background=light
-colorscheme solarized
+colorscheme solarized8
 
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
