@@ -1,0 +1,21 @@
+[credential]
+        helper = osxkeychain
+[color]
+        ui = always
+[core]
+        editor = $(brew --prefix)/bin/nvim
+        excludesfile = ~/.gitignore
+[fetch]
+        # Automatically prune deleted branches from your local copy when you fetch (or pull)
+        prune = true
+[include]
+        # Include local settings
+        path = .gitlocal
+[merge]
+        tool = meld
+[pull]
+        rebase = true
+[push]
+        default = simple
+[rerere]
+        enabled = true
