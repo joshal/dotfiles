@@ -28,6 +28,7 @@ Plug 'chase/vim-ansible-yaml'                                                   
 Plug '907th/vim-auto-save'                                                           " automatically saves changes to disk without having to use :w
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
+Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                  " go (golang) support for Vim
 Plug 'fisadev/vim-isort'                                                             " sort python imports
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
