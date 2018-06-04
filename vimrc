@@ -129,8 +129,11 @@ nnoremap <leader>d :bdelete<cr>
 " Settings (non-plugin)
 " ==========================================================
 
-""" Change local settings (keep alphabetically arranged by file type)
+autocmd BufReadPost *gitlocal set filetype=gitconfig
+
+""" Change local filetype settings (keep alphabetically arranged by file type)
 autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
+autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
