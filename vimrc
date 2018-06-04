@@ -285,6 +285,8 @@ autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 """ YouCompleteMe
 "" map ;m to go to declaration/definition
 nnoremap <leader>m :YcmCompleter GoTo<CR>
+"" map ;r to go to declaration/definition
+nnoremap <leader>r :YcmCompleter GoToReferences<CR>
 "" close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "" YCM's identifier completer will also collect identifiers from tags files
