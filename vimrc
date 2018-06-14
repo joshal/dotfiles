@@ -167,7 +167,12 @@ function! ToggleNERDTreeFind()
     if g:NERDTree.IsOpen()
         execute ':NERDTreeClose'
     else
-        execute ':NERDTreeFind'
+        " Use NERDTreeToggle when current filename is empty
+        if (expand("%:t") != '')
+            execute ':NERDTreeFind'
+        else
+            execute ':NERDTreeToggle'
+        endif
     endif
 endfunction
 
