@@ -185,6 +185,7 @@ endfunction
 let g:fzf_nvim_statusline = 0
 "" ctrl+p opens fuzzy search for files
 nnoremap <c-p> :Files<cr>
+nnoremap <leader>p :Files!<cr>
 "" ctrl+a opens fuzzy search for buffers
 nnoremap <c-a> :Buffers<cr>
 "" [[B]Commits] to customize the options used by 'git log':
@@ -208,7 +209,10 @@ command! -bang -nargs=* Ag
   \                 <bang>0)
 "" Files command with preview window
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#files(<q-args>,
+  \                    <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                            : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                    <bang>0)
 "" Customize fzf colors to match your color scheme
 let g:fzf_colors =
     \ { 'border': ['fg', 'Normal'] }
