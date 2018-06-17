@@ -190,6 +190,8 @@ nnoremap <leader>p :Files!<cr>
 nnoremap <c-a> :Buffers<cr>
 "" [[B]Commits] to customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+"" use ;o to search under the cursor
+nnoremap <leader>o :Rg <C-R><C-W><CR>
 "" when fzf starts in a terminal buffer, hide the statusline of the containing buffer
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
@@ -207,6 +209,13 @@ command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 "" Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>,
