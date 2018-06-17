@@ -8,6 +8,8 @@
 [fetch]
         # Automatically prune deleted branches from your local copy when you fetch (or pull)
         prune = true
+        # unconditionally recurse into submodules
+        recurseSubmodules = true
 [include]
         # Include local settings
         path = .gitlocal
