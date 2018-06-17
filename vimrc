@@ -13,12 +13,12 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
+Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
 Plug 'AndrewRadev/splitjoin.vim'                                                     " simplifies the transition between multiline and single-line code
-Plug 'scrooloose/syntastic'                                                          " syntax checking plugin
 Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                  " tern based javascript editing
 Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
@@ -238,37 +238,6 @@ let g:fzf_colors =
 map <leader>n :call ToggleNERDTreeFind()<CR>
 "" close vim if nerdtree is the only window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-""" syntastic
-"" *NOTE*: linters that syntastic supports:
-"" https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-"" ignore certain flake8 errors and warnings
-"" E221: multiple spaces before operator
-"" E241: multiple spaces after ‘,’
-"" E272: multiple spaces before keyword
-let g:syntastic_python_flake8_post_args='--ignore=E221,E241,E272 --max-line-length=99'
-
-"" golang
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-
-"" java
-" Use gradle syntastic plugin (https://github.com/Scuilion/gradle-syntastic-plugin) to generate the
-" config file
-" Explicitly disable syntastic java checkers. See,
-" https://github.com/Valloric/YouCompleteMe#java-semantic-completion
-let g:syntastic_java_checkers=[]
-let g:syntastic_java_javac_config_file_enabled = 1
 
 """ tagbar
 "" open Tagbar with ;t
