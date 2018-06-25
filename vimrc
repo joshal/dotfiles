@@ -124,7 +124,8 @@ nnoremap <silent> <Down> :resize -5<cr>
 " Switch buffers
 nnoremap <leader>l :bnext<cr>
 nnoremap <leader>k :bprevious<cr>
-nnoremap <leader>d :bdelete<cr>
+"" https://superuser.com/a/370121
+nnoremap <leader>d :bprevious<bar>split<bar>bnext<bar>bdelete<cr>
 
 " ==========================================================
 " Settings (non-plugin)
