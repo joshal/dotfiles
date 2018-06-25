@@ -1,0 +1,6 @@
+# Using glob patterns to include/exclude files or folders
+--glob=!git/*
+
+# Searches case insensitively if the pattern is all lowercase.
+# Search case sensitively otherwise.
+--smart-case
