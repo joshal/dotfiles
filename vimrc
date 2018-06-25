@@ -181,6 +181,9 @@ endfunction
 " Plugin Settings
 " ==========================================================
 
+""" ale
+let g:ale_python_flake8_options = "--max-line-length=99"
+
 """ fzf.vim
 "" disable statusline overwriting
 let g:fzf_nvim_statusline = 0
