@@ -1,0 +1,24 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~', '~/.config']
+
+- link:
+    ~/.ctags:
+    ~/.dotfiles: ''
+    ~/.gitconfig:
+    ~/.gitignore:
+    ~/.ripgreprc:
+    ~/.tmux.conf:
+    ~/.tmuxline.conf:
+    ~/.vimrc:
+    ~/.zshrc:
+    ~/.zshrc_scripts:
+    ~/.zshrc_zplug:
+
+- shell:
+  - git submodule sync --recursive
+  # the following have to run after linking ~/.gitconfig
+  - git submodule update --init --recursive
