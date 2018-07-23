@@ -17,6 +17,7 @@ source ~/.zplug/init.zsh
 function env_powelevel9k() {
     export POWERLEVEL9K_COLOR_SCHEME='light'
     export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir)
+    export POWERLEVEL9K_MODE='nerdfont-complete'
     export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
     export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='❯ '
     export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
