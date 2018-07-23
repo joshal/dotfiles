@@ -38,6 +38,12 @@ alias tmux='direnv exec / tmux'
 setopt complete_aliases
 
 #########
+# ripgrep
+#########
+
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+#########
 # fzf
 #########
 
