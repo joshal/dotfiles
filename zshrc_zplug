@@ -35,7 +35,6 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug 'plugins/docker', from:oh-my-zsh
 zplug 'plugins/docker-compose', from:oh-my-zsh
 zplug 'plugins/git', from:oh-my-zsh
-zplug 'plugins/minikube', from:oh-my-zsh
 zplug 'plugins/kubectl', from:oh-my-zsh
 zplug 'plugins/ssh-agent', from:oh-my-zsh
 

@@ -22,6 +22,8 @@ alias vim='mvim -v'
 
 if type nvim > /dev/null 2>&1; then
     alias vim='nvim'
+    export VISUAL=nvim
+    export EDITOR="$VISUAL"
 fi
 
 ########
@@ -59,7 +61,10 @@ export FZF_DEFAULT_OPTS="--reverse --inline-info"
 export JENV_ROOT="$HOME/.jenv"
 if which jenv > /dev/null; then
     # initialize jenv
-    eval "$(jenv init -)"
+    eval "$(jenv init - --no-rehash)"
+    # start background rehashing process, see
+    # https://github.com/gcuisinier/jenv/issues/148#issuecomment-230259636
+    (jenv rehash &) 2> /dev/null
     # XXX: There seems to be an issue with maven where in the M2_HOME variable is set by default and
     # pointing to a wrong location. We use the maven plugin enabled with jenv so that maven can find
     # the JAVA_HOME variable it needs. The jenv enabled maven fails because of the wrong M2_HOME
@@ -73,23 +78,24 @@ fi
 #########
 
 export PYENV_ROOT="$HOME/.pyenv"
-if which pyenv > /dev/null; then
+if command -v pyenv > /dev/null; then
     # initialize pyenv
     eval "$(pyenv init -)"
     # initialize pyenv virtualenv
     eval "$(pyenv virtualenv-init -)"
     # install virtualenvwrapper
     # pyenv virtualenvwrapper
-fi
 
-# As suggested with YCM
-# https://github.com/Valloric/YouCompleteMe#i-get-fatal-python-error-pythreadstate_get-no-current-thread-on-startup
-pyenv() {
-    case $* in
-        install* ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
-        * ) command pyenv "$@" ;;
-    esac
-}
+    # As suggested with YCM
+    # https://github.com/Valloric/YouCompleteMe#i-get-fatal-python-error-pythreadstate_get-no-current-thread-on-startup
+    pyenv() {
+        case $* in
+            install* ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
+            doctor ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv doctor ;;
+            * ) command pyenv "$@" ;;
+        esac
+    }
+fi
 
 #######
 # rbenv
@@ -105,12 +111,14 @@ fi
 # pip
 #######
 
-pip() {
-    case $* in
-        install* ) shift 1; command env ARCHFLAGS="-arch x86_64" LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include" pip install "$@" ;;
-        * ) command pip "$@" ;;
-    esac
-}
+if command -v pip > /dev/null; then
+    pip() {
+        case $* in
+            install* ) shift 1; command env ARCHFLAGS="-arch x86_64" LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include" pip install "$@" ;;
+            * ) command pip "$@" ;;
+        esac
+    }
+fi
 
 
 #########

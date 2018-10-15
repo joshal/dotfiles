@@ -18,6 +18,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }               
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
+Plug 'Xuyuanp/nerdtree-git-plugin'                                                   " A plugin of NERDTree showing git status
 Plug 'AndrewRadev/splitjoin.vim'                                                     " simplifies the transition between multiline and single-line code
 Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                  " tern based javascript editing
@@ -34,7 +35,8 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'                                        
 Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
 Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
 Plug 'Valloric/YouCompleteMe',
-    \ { 'do': 'python3 ./install.py --clang-comp --go-comp --java-comp --tern' }     " fuzzy-search code completion
+    \ { 'on': [],
+    \   'do': 'python3 ./install.py --clang-comp --go-comp --java-comp --tern' }     " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -60,7 +62,7 @@ set numberwidth=1               " using only 1 column (and 1 space) while possib
 set title                       " show title in console title bar
 set wildmenu                    " Menu completion in command mode on <Tab>
 set wildmode=full               " <tab> cycles between all matching choices.
-set cmdheight=2                 " give more space for displaying messages; height of command line
+set cmdheight=1                 " height of command line
 
 """ Moving Around/Editing
 set cursorline                  " have a line indicate the cursor location
@@ -136,7 +138,7 @@ autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
 autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
-autocmd FileType javascript setlocal ts=3 sts=3 sw=3 expandtab
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
 autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
@@ -272,6 +274,12 @@ set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 """ YouCompleteMe
+"" defer loading of YouCompleteMe until after user enters into insert mode
+augroup load_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('YouCompleteMe')
+                     \| call youcompleteme#Enable() | autocmd! load_ycm
+augroup END
 "" map ;m to go to declaration/definition
 nnoremap <leader>m :YcmCompleter GoTo<CR>
 "" map ;r to go to declaration/definition
