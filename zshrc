@@ -30,13 +30,6 @@ fi
 
 eval "$(direnv hook zsh)"
 
-########
-# tmux
-########
-
-alias tmux='direnv exec / tmux'
-setopt complete_aliases
-
 #########
 # ripgrep
 #########
