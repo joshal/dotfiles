@@ -5,6 +5,10 @@
 [core]
         editor = $(brew --prefix)/bin/nvim
         excludesfile = ~/.gitignore
+[diff]
+        tool = vimdiff
+[difftool]
+        prompt = false
 [fetch]
         # Automatically prune deleted branches from your local copy when you fetch (or pull)
         prune = true
@@ -14,7 +18,11 @@
         # Include local settings
         path = .gitlocal
 [merge]
-        tool = meld
+        tool = vimdiff
+[mergetool]
+        prompt = true
+[mergetool "vimdiff"]
+        cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [pull]
         rebase = true
 [push]
