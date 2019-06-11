@@ -140,6 +140,7 @@ autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
+autocmd FileType python nnoremap <Leader>i :Isort<CR>
 autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
 autocmd FileType text setlocal spell spelllang=en_us
@@ -284,6 +285,8 @@ augroup END
 nnoremap <leader>m :YcmCompleter GoTo<CR>
 "" map ;r to go to declaration/definition
 nnoremap <leader>r :YcmCompleter GoToReferences<CR>
+"" map ;i to sort imports
+nnoremap <Leader>i :YcmCompleter OrganizeImports<CR>
 "" close preview window
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "" YCM's identifier completer will also collect identifiers from tags files
