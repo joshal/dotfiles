@@ -1,3 +1,10 @@
+# Clear PATH variable since tmux always sources /etc/profile as it runs as a login shell -
+# See, https://superuser.com/a/583502
+if [ -n "$TMUX" ] && [ -f /etc/profile ]; then
+    PATH=""
+    source /etc/profile
+fi
+
 if [ -f ~/.zshrc_scripts ]; then
     source ~/.zshrc_scripts
 fi
