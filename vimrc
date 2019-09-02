@@ -56,6 +56,7 @@ set synmaxcol=128
 """ Color scheme
 set termguicolors
 set background=light
+let g:gruvbox_contrast_light = 'soft'
 colorscheme gruvbox
 
 set number                      " Display line numbers
