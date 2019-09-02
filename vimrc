@@ -16,6 +16,7 @@ call plug#begin(vimPluggedHomeDir)
 Plug 'w0rp/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
+Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
 Plug 'Xuyuanp/nerdtree-git-plugin'                                                   " A plugin of NERDTree showing git status
@@ -55,7 +56,7 @@ set synmaxcol=128
 """ Color scheme
 set termguicolors
 set background=light
-colorscheme solarized8
+colorscheme gruvbox
 
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
@@ -256,7 +257,7 @@ let g:tmuxline_powerline_separators = 0
 "" automatically populate the g:airline_symbols dictionary with the powerline symbols
 let g:airline_powerline_fonts = 1
 "" set the theme for airline
-let g:airline_theme='solarized'
+let g:airline_theme='gruvbox'
 "" automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
 " disable tmuxline extention for airline; we load our own tmux statusbar config
