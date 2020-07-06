@@ -14,6 +14,7 @@ call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
 Plug 'w0rp/ale'
+Plug 'psf/black'                                                                     " uncompromising Python code formatter
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
@@ -142,6 +143,7 @@ autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
+autocmd FileType python nnoremap <Leader>b :Black<CR>
 autocmd FileType python nnoremap <Leader>i :Isort<CR>
 autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
@@ -186,6 +188,9 @@ endfunction
 
 """ ale
 let g:ale_python_flake8_options = "--max-line-length=99"
+
+""" black
+let g:black_linelength = 99
 
 """ fzf.vim
 "" disable statusline overwriting
