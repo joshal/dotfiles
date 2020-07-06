@@ -139,3 +139,9 @@ pathappend $GOPATH/bin $GOROOT/bin
 if [ -f ~/.zshrc_work ]; then
     source ~/.zshrc_work
 fi
+
+#########
+# autojump
+#########
+
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh

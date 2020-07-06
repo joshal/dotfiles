@@ -18,7 +18,9 @@ brew update
 
 # Install all our dependencies with bundle (See Brewfile)
 brew tap homebrew/bundle
-brew bundle -v
+brew bundle install -f -v
+brew bundle cleanup -f
+brew bundle check -v
 
 # Make homebrew installed zsh the default shell
 if ! grep -Fxq "/usr/local/bin/zsh" /etc/shells; then
