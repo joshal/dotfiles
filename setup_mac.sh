@@ -27,4 +27,6 @@ if ! grep -Fxq "/usr/local/bin/zsh" /etc/shells; then
     echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 fi
 
-chsh -s /usr/local/bin/zsh
+if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
+    chsh -s /usr/local/bin/zsh
+fi
