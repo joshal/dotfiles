@@ -151,6 +151,9 @@ autocmd FileType text setlocal spell spelllang=en_us
 autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 tw=79 expandtab
 
+" Save buffer when text is changed
+autocmd InsertLeave * silent write
+
 " ==========================================================
 " Custom Functions
 " ==========================================================
