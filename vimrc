@@ -15,6 +15,7 @@ call plug#begin(vimPluggedHomeDir)
 " Make sure you use single quotes
 Plug 'w0rp/ale'
 Plug 'psf/black'                                                                     " uncompromising Python code formatter
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
@@ -36,9 +37,6 @@ Plug 'fisadev/vim-isort'                                                        
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
 Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
 Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
-Plug 'Valloric/YouCompleteMe',
-    \ { 'on': [],
-    \   'do': 'python3 ./install.py --clang-comp --go-comp --java-comp --tern' }     " fuzzy-search code completion
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -143,8 +141,6 @@ autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
-autocmd FileType python nnoremap <Leader>b :Black<CR>
-autocmd FileType python nnoremap <Leader>i :Isort<CR>
 autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
 autocmd FileType text setlocal spell spelllang=en_us
@@ -284,28 +280,27 @@ set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 " automatically run `golint` on `:w`
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
-""" YouCompleteMe
-"" defer loading of YouCompleteMe until after user enters into insert mode
-augroup load_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('YouCompleteMe')
-                     \| call youcompleteme#Enable() | autocmd! load_ycm
-augroup END
-"" map ;m to go to declaration/definition
-nnoremap <leader>m :YcmCompleter GoTo<CR>
-"" map ;r to go to declaration/definition
-nnoremap <leader>r :YcmCompleter GoToReferences<CR>
-"" map ;i to sort imports
-nnoremap <Leader>i :YcmCompleter OrganizeImports<CR>
-"" close preview window
-let g:ycm_autoclose_preview_window_after_insertion = 1
-"" YCM's identifier completer will also collect identifiers from tags files
-let g:ycm_collect_identifiers_from_tags_files = 1
-"" Completion for programming language's keyword
-let g:ycm_seed_identifiers_with_syntax = 1
-"" Completion in comments
-let g:ycm_complete_in_comments = 1
-"" Character-based triggers for the various semantic completion engines
-let g:ycm_semantic_triggers = {
-    \ 'python': ['re!from\s+\S+\s+import\s'],
-    \ }
+""" coc.nvim
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <buffer> <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <buffer> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <buffer> <silent><expr> <c-space> coc#refresh()
+
+" GoTo code navigation.
+nmap <buffer> <leader>m <Plug>(coc-definition)
+nmap <buffer> <leader>gy <Plug>(coc-type-definition)
+nmap <buffer> <leader>gi <Plug>(coc-implementation)
+nmap <buffer> <leader>r <Plug>(coc-references)
+
+" Add `:OR` command for organize imports of the current buffer.
+nnoremap <leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
