@@ -14,6 +14,7 @@
     ~/.ripgreprc:
     ~/.tmux.conf:
     ~/.tmuxline.conf:
+    ~/.vim/coc-settings.json:
     ~/.vimrc:
     ~/.zshrc:
     ~/.zshrc_scripts:

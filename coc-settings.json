@@ -1,0 +1,7 @@
+{
+    "diagnostic.messageTarget": "echo",
+    "python.jediEnabled": false,
+    "python.venvFolders": ["envs",".pyenv",".direnv", ".venv", ".venv2", ".venv3"],
+    "signature.target": "echo",
+    "suggest.floatEnable": false
+}
