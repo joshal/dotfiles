@@ -9,6 +9,8 @@ tags
 
 # local debugging
 .venv
+.venv3
+.venv2
 jd_local
 
 # IntelliJ
@@ -27,4 +29,3 @@ jd_local
 .project
 .settings/
 .classpath
-bin/
