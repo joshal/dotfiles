@@ -14,6 +14,7 @@ call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
 Plug 'w0rp/ale'
+Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'psf/black'                                                                     " uncompromising Python code formatter
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
@@ -28,7 +29,6 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                             
 Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
 Plug 'bling/vim-airline'                                                             " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
-Plug 'chase/vim-ansible-yaml'                                                        " additional support for Ansible in vim
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
