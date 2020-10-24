@@ -11,21 +11,6 @@ fi
 source ~/.zplug/init.zsh
 
 ####
-# Functions
-####
-
-function env_powerlevel9k() {
-    export POWERLEVEL9K_COLOR_SCHEME='light'
-    export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv dir)
-    export POWERLEVEL9K_MODE='nerdfont-complete'
-    export POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-    export POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='❯ '
-    export POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-    export POWERLEVEL9K_PYTHON_ICON="ⓔ "
-    export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
-}
-
-####
 # Plugs
 ####
 
@@ -45,7 +30,7 @@ zplug 'zsh-users/zsh-completions'
 zplug 'lib/*', from:oh-my-zsh
 
 # Load theme file
-zplug 'romkatv/powerlevel10k', use:powerlevel10k.zsh-theme
+zplug romkatv/powerlevel10k, as:theme, depth:1
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -58,10 +43,6 @@ fi
 #####
 # Post-install parameters
 #####
-
-if zplug check 'romkatv/powerlevel10k'; then
-    env_powerlevel9k
-fi
 
 # Source plugins and add commands to $PATH
 zplug load

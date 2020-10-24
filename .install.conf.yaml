@@ -11,6 +11,7 @@
     ~/.dotfiles: ''
     ~/.gitconfig:
     ~/.gitignore:
+    ~/.p10k.zsh:
     ~/.ripgreprc:
     ~/.tmux.conf:
     ~/.tmuxline.conf:
