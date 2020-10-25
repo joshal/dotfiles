@@ -7,6 +7,7 @@
 
 - link:
     ~/.config/alacritty/alacritty.yml:
+    ~/.config/nvim/utils/format_yaml.py:
     ~/.ctags:
     ~/.dotfiles: ''
     ~/.gitconfig:
@@ -22,6 +23,12 @@
     ~/.zshrc_zplug:
     ~/.Brewfile:
       if: '[ "$(uname)" "==" "Darwin" ]'
+
+- pip:
+    file: pip/requirements.txt
+    user: true    # Like --user
+    stdout: true  # Print the execution stdout
+    stderr: true  # Print the execution stderr
 
 - shell:
   - git submodule sync --recursive

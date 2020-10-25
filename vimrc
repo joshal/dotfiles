@@ -237,6 +237,15 @@ command! -bang -nargs=? -complete=dir Files
 let g:fzf_colors =
     \ { 'border': ['fg', 'Normal'] }
 
+""" neoformat
+"" add yaml formatter using ruamel.yaml
+let g:neoformat_yaml_ruamel = {
+    \ 'exe': 'python3',
+    \ 'args': [ '~/.config/nvim/utils/format_yaml.py' ],
+    \ 'stdin': 1,
+    \ }
+let g:neoformat_enabled_yaml = ['ruamel']
+
 """ NERDTree
 "" open a NERDTree automatically when vim starts up
 " autocmd VimEnter * NERDTree
