@@ -48,9 +48,12 @@ set nocompatible                " make vim more useful
 syntax on                       " syntax highlighing
 filetype on                     " try to detect filetypes
 filetype plugin indent on       " enable loading indent file; required for vundle
+set hidden                      " allows you to deal with multiple unsaved buffers simultaneously
+                                " without resorting to misusing tabs
 let mapleader=";"               " change the leader to be a colon vs slash
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=128
+set redrawtime=10000
 
 """ Color scheme
 set termguicolors
