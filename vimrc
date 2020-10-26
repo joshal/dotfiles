@@ -248,6 +248,8 @@ let g:neoformat_yaml_ruamel = {
     \ 'stdin': 1,
     \ }
 let g:neoformat_enabled_yaml = ['ruamel']
+"" use ;n to open nerdtree
+map <leader>f :Neoformat<CR>
 
 """ NERDTree
 "" open a NERDTree automatically when vim starts up
