@@ -31,6 +31,8 @@ def parse_args():
 def main():
     options = parse_args()
     yaml = YAML()
+    yaml.preserve_quotes = True  # double quotes remain double quotes, for lesser diffs
+    yaml.indent(mapping=2, sequence=4, offset=2)
     with options.infile as infile, options.outfile as outfile:
         try:
             yaml.dump(yaml.load(infile), outfile)
