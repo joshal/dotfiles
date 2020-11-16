@@ -20,3 +20,13 @@ pathprepend() {
         fi
     done
 }
+
+# Inspired by https://medium.com/in-the-weeds/automating-amending-to-older-commits-c33740c1beb3
+# A use case is to automate interactive rebase by putting the current fixup commit with the commit
+# where the same file was last changed, e.g.
+# ❯ for f in $(git status -uno --porcelain | awk -F ' ' '{print $2}'); do git add $f && amend-fixup $(git --no-pager log -n 1 --pretty=format:%H -- $f); done
+amend-fixup() {
+    SHA=$1
+    git commit --fixup $SHA &&
+        GIT_EDITOR="cat" git rebase --autosquash --autostash --interactive $SHA^
+}
