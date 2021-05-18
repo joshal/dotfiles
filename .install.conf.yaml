@@ -3,9 +3,11 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config']
+- clean: ['~', '~/.config', '/usr/local/bin/cask-upgrade']
 
 - link:
+    /usr/local/bin/cask-upgrade:
+      if: '[ "$(uname)" "==" "Darwin" ]'
     ~/.config/alacritty/alacritty.yml:
     ~/.config/nvim/utils/format_yaml.py:
     ~/.ctags:
