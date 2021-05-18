@@ -13,7 +13,7 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'psf/black'                                                                     " uncompromising Python code formatter
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
@@ -33,6 +33,7 @@ Plug 'junegunn/vim-easy-align'                                                  
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
 Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                  " go (golang) support for Vim
+Plug 'rhysd/vim-grammarous'                                                          " grammar checker
 Plug 'fisadev/vim-isort'                                                             " sort python imports
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
 Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
@@ -189,6 +190,9 @@ endfunction
 " ==========================================================
 
 """ ale
+let g:ale_virtualenv_dir_names = []
+let b:ale_linters = ['flake8']
+let g:ale_disable_lsp = 1
 let g:ale_python_flake8_options = "--max-line-length=99"
 
 """ black
@@ -360,3 +364,8 @@ nmap <buffer> <leader>r <Plug>(coc-references)
 
 " Add `:OR` command for organize imports of the current buffer.
 nnoremap <leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+
+call coc#config('python', {
+\   'jediEnabled': v:false,
+\   'pythonPath': split(execute('!which python'), '\n')[-1]
+\ })
