@@ -32,7 +32,6 @@ Plug 'vim-airline/vim-airline-themes'                                           
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
-Plug 'fatih/vim-go', { 'for' : ['go', 'markdown'] }                                  " go (golang) support for Vim
 Plug 'rhysd/vim-grammarous'                                                          " grammar checker
 Plug 'fisadev/vim-isort'                                                             " sort python imports
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
@@ -142,6 +141,7 @@ autocmd BufReadPost *gitlocal set filetype=gitconfig
 autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
 autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
+autocmd FileType go setlocal noexpandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
@@ -292,14 +292,9 @@ xmap ga <Plug>(EasyAlign)
 "" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-""" vim-go
-"" go lint
-set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
-" automatically run `golint` on `:w`
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
-
 """ coc.nvim
 let g:coc_global_extensions = [
+    \ 'coc-go',
     \ 'coc-java',
     \ 'coc-json',
     \ 'coc-python',
@@ -332,12 +327,16 @@ endif
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
+
+nmap <Esc> :call coc#float#close_all() <CR>
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -357,13 +356,13 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " GoTo code navigation.
-nmap <buffer> <leader>m <Plug>(coc-definition)
-nmap <buffer> <leader>gy <Plug>(coc-type-definition)
-nmap <buffer> <leader>gi <Plug>(coc-implementation)
-nmap <buffer> <leader>r <Plug>(coc-references)
+nmap <silent> <leader>m <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>r <Plug>(coc-references)
 
 " Add `:OR` command for organize imports of the current buffer.
-nnoremap <leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+nnoremap <silent> <leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 call coc#config('python', {
 \   'jediEnabled': v:false,

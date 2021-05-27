@@ -9,6 +9,8 @@
     /usr/local/bin/cask-upgrade:
       if: '[ "$(uname)" "==" "Darwin" ]'
     ~/.config/alacritty/alacritty.yml:
+    ~/.config/nvim/coc-settings.json:
+    ~/.config/nvim/init.vim: vimrc
     ~/.config/nvim/utils/format_yaml.py:
     ~/.ctags:
     ~/.dotfiles: ''
@@ -17,7 +19,7 @@
     ~/.p10k.zsh:
     ~/.ripgreprc:
     ~/.tmux.conf:
-    ~/.tmuxline.conf:
+    ~/.tmux/tmuxline.conf:
     ~/.vim/coc-settings.json:
     ~/.vimrc:
     ~/.zshrc:
