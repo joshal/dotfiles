@@ -3,14 +3,14 @@
 set -x
 
 if [ "$(uname)" != "Darwin" ]; then
-    echo "Unable to establish that this is Mac. Skipping..."
+  echo "Unable to establish that this is Mac. Skipping..."
 fi
 
 echo "Setting up your Mac..."
 
 # Check for Homebrew and install if we don't have it
 if test ! $(which brew); then
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Update Homebrew recipes
@@ -23,10 +23,11 @@ brew bundle cleanup -f
 brew bundle check -v
 
 # Make homebrew installed zsh the default shell
-if ! grep -Fxq "/usr/local/bin/zsh" /etc/shells; then
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+zsh_bin=$(brew --prefix)/bin/zsh
+if ! grep -Fxq $zsh_bin /etc/shells; then
+  echo $zsh_bin | sudo tee -a /etc/shells
 fi
 
-if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
-    chsh -s /usr/local/bin/zsh
+if [ "$SHELL" != "$zsh_bin" ]; then
+  chsh -s $zsh_bin
 fi
