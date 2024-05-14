@@ -8,7 +8,7 @@
 - link:
     /usr/local/bin/cask-upgrade:
       if: '[ "$(uname)" "==" "Darwin" ]'
-    ~/.config/alacritty/alacritty.yml:
+    ~/.config/alacritty/alacritty.toml:
     ~/.config/nvim/coc-settings.json:
     ~/.config/nvim/init.vim: vimrc
     ~/.config/nvim/utils/format_yaml.py:
