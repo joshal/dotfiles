@@ -28,17 +28,15 @@
       ~/.Brewfile:
         if: '[ "$(uname)" "==" "Darwin" ]'
 
-  - pip:
-      file: pip/requirements.txt
-      user: true  # Like --user
-      stdout: true # Print the execution stdout
-      stderr: true # Print the execution stderr
-
   - shell:
       - git submodule sync --recursive
-  # the following have to run after linking ~/.gitconfig
+      # the following have to run after linking ~/.gitconfig
       - git submodule update --init --recursive
       - command: ./setup_mac.sh
         description: Install dependecies for Mac
+        stdout: true
+        stderr: true
+      - command: ./python/install_python_tools.sh
+        description: Install Python dependecies
         stdout: true
         stderr: true
