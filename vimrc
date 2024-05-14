@@ -17,22 +17,24 @@ Plug 'dense-analysis/ale'
 Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'psf/black'                                                                     " uncompromising Python code formatter
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
+Plug 'antoinemadec/coc-fzf'
+Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
 Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
 Plug 'Xuyuanp/nerdtree-git-plugin'                                                   " A plugin of NERDTree showing git status
-Plug 'AndrewRadev/splitjoin.vim'                                                     " simplifies the transition between multiline and single-line code
 Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                  " tern based javascript editing
 Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
-Plug 'bling/vim-airline'                                                             " lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
+" Plug 'bling/vim-airline'                                                             " lean & mean status/tabline for vim that's light as air
+" Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
 Plug 'rhysd/vim-grammarous'                                                          " grammar checker
+Plug 'towolf/vim-helm'
 Plug 'fisadev/vim-isort'                                                             " sort python imports
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
 Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
@@ -131,6 +133,10 @@ nnoremap <leader>k :bprevious<cr>
 "" https://superuser.com/a/370121
 nnoremap <leader>d :bprevious<bar>split<bar>bnext<bar>bdelete<cr>
 
+" Paste multiple times
+"" https://stackoverflow.com/questions/7163947/paste-multiple-times
+xnoremap p pgvy
+
 " ==========================================================
 " Settings (non-plugin)
 " ==========================================================
@@ -142,9 +148,13 @@ autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
 autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
 autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
 autocmd FileType go setlocal noexpandtab
+autocmd FileType go nmap <silent> <leader>T :CocCommand go.test.toggle<CR>
+autocmd FileType helm setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType lprolog setlocal noexpandtab
 autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType markdown setlocal spell spelllang=en_us
+autocmd FileType proto setlocal ts=2 sts=2 sw=2 tw=79 expandtab
 autocmd FileType python setlocal spell spelllang=en_us
 autocmd FileType rst setlocal spell spelllang=en_us
 autocmd FileType text setlocal spell spelllang=en_us
@@ -185,6 +195,35 @@ function! ToggleNERDTreeFind()
     endif
 endfunction
 
+function! PrettyPrint()
+python3 << EOF
+import vim
+from pprint import pprint, pformat
+
+def pretty_print():
+    buf = vim.current.buffer
+    start = buf.mark("<") # get the begin of the selection
+    end = buf.mark(">") # get the end of the selection
+    text = get_text(start, end)
+    content = eval(text)
+    pprint(content)
+    # buf[end[0] - 1] = pformat(content, indent=4)
+
+def get_text(start, end):
+    """
+    Get text between start and end delimiters
+    """
+    buf = vim.current.buffer
+    text = ""
+    for line in buf[start[0]-1:end[0]]:
+        text += line
+    last_index = (len(text) - len(buf[end[0]-1])) + end[1] + 1
+    return text[start[1]:last_index]
+
+pretty_print()
+EOF
+endfunction
+
 " ==========================================================
 " Plugin Settings
 " ==========================================================
@@ -197,6 +236,13 @@ let g:ale_python_flake8_options = "--max-line-length=99"
 
 """ black
 let g:black_linelength = 99
+
+""" copilot.vim
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
 
 """ fzf.vim
 "" disable statusline overwriting
@@ -252,6 +298,8 @@ let g:neoformat_yaml_ruamel = {
     \ 'stdin': 1,
     \ }
 let g:neoformat_enabled_yaml = ['ruamel']
+let g:neoformat_enabled_terraform = ['terraform']
+let g:shfmt_opt="-i 2 -ci -sr"
 "" use ;n to open nerdtree
 map <leader>f :Neoformat<CR>
 
@@ -292,12 +340,15 @@ xmap ga <Plug>(EasyAlign)
 "" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+""" vim git-gutter
+set updatetime=100
+
 """ coc.nvim
 let g:coc_global_extensions = [
     \ 'coc-go',
     \ 'coc-java',
     \ 'coc-json',
-    \ 'coc-python',
+    \ 'coc-pyright',
     \ 'coc-yaml',
     \ ]
 
@@ -319,7 +370,6 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -356,6 +406,7 @@ nmap <silent> <leader>m <Plug>(coc-definition)
 nmap <silent> <leader>gy <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>r <Plug>(coc-references)
+nmap <silent> <leader>s <Plug>(coc-rename)
 
 " Add `:OR` command for organize imports of the current buffer.
 nnoremap <silent> <leader>i :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
@@ -367,3 +418,6 @@ call coc#config('python', {
 
 hi link CocMenuSel PmenuSel
 hi link CocSearch GruvboxYellow
+
+""" vim-emoji
+set completefunc=emoji#complete

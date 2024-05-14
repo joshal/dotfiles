@@ -1,10 +1,12 @@
 [credential]
         helper = osxkeychain
 [color]
-        ui = always
+        ui = true
 [core]
         editor = $(brew --prefix)/bin/nvim
         excludesfile = ~/.gitignore
+        ignorecase = false
+	    hooksPath = /usr/local/gitconfig/hooks/
 [diff]
         tool = vimdiff
 [difftool]
@@ -17,6 +19,8 @@
 [include]
         # Include local settings
         path = .gitlocal
+[interactive]
+        diffFilter = delta --color-only --features=interactive
 [merge]
         tool = vimdiff
 [mergetool]
@@ -29,3 +33,15 @@
         default = simple
 [rerere]
         enabled = true
+[url "git@github.com:"]
+        insteadOf = https://github.com/
+[user]
+        email = jdaftari@confluent.io
+        name = Joshal Daftari
+[safe]
+	directory = /repo
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

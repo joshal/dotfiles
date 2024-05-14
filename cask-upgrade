@@ -2,5 +2,5 @@
 
 (set -x; brew update;)
 (set -x; brew upgrade;)
-(set -x; brew upgrade --cask --greedy --verbose)
+(set -x; brew upgrade --cask --greedy --force --verbose)
 (set -x; brew cleanup;)

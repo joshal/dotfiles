@@ -1,7 +1,25 @@
 {
-    "diagnostic.messageTarget": "echo",
-    "python.jediEnabled": false,
-    "python.venvFolders": ["envs",".pyenv",".direnv", ".venv", ".venv2", ".venv3"],
-    "signature.target": "echo",
-    "suggest.floatEnable": false
+  "diagnostic.messageTarget": "echo",
+  "go.goplsEnv": {
+    "GOFLAGS": "-tags=unit,integration"
+  },
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf",
+        "tfvars"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
+  "signature.target": "echo"
 }

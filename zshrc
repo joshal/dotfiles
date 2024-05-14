@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 # Clear PATH variable since tmux always sources /etc/profile as it runs as a login shell -
 # See, https://superuser.com/a/583502
 if [ -n "$TMUX" ] && [ -f /etc/profile ]; then
@@ -94,7 +96,7 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 if command -v pyenv > /dev/null; then
     # initialize pyenv
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
     # initialize pyenv virtualenv
     eval "$(pyenv virtualenv-init -)"
     # install virtualenvwrapper
@@ -135,14 +137,6 @@ if command -v pip > /dev/null; then
 fi
 
 
-#########
-# Go
-#########
-
-export GOPATH=$HOME/Code/Go
-export GOROOT=/usr/local/opt/go/libexec
-pathappend $GOPATH/bin $GOROOT/bin
-
 if [ -f ~/.zshrc_work ]; then
     source ~/.zshrc_work
 fi
@@ -164,3 +158,18 @@ WORDCHARS=''
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#########
+# git
+#########
+
+# When you're on your fork, simply type 'update' to update your master. This will rebase all your current changes on top of upstream/master.
+alias update="git checkout master && git fetch --tags -f upstream && git rebase upstream/master && git push origin HEAD:master"
+
+# Created by `pipx` on 2021-05-18 20:36:24
+export PATH="$PATH:/Users/jdaftari/.local/bin"
+
+#########
+# zoxide
+#########
+eval "$(zoxide init zsh)"
