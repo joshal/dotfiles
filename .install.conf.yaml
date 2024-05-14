@@ -1,44 +1,44 @@
-- defaults:
-    link:
-      create: true
-      relink: true
+  - defaults:
+      link:
+        create: true
+        relink: true
 
-- clean: ['~', '~/.config', '/usr/local/bin/cask-upgrade']
+  - clean: ['~', '~/.config', '/usr/local/bin/cask-upgrade']
 
-- link:
-    /usr/local/bin/cask-upgrade:
-      if: '[ "$(uname)" "==" "Darwin" ]'
-    ~/.config/alacritty/alacritty.toml:
-    ~/.config/nvim/coc-settings.json:
-    ~/.config/nvim/init.vim: vimrc
-    ~/.config/nvim/utils/format_yaml.py:
-    ~/.ctags:
-    ~/.dotfiles: ''
-    ~/.gitconfig:
-    ~/.gitignore:
-    ~/.p10k.zsh:
-    ~/.ripgreprc:
-    ~/.tmux.conf:
-    ~/.tmux/tmuxline.conf:
-    ~/.vim/coc-settings.json:
-    ~/.vimrc:
-    ~/.zshrc:
-    ~/.zshrc_scripts:
-    ~/.zshrc_zplug:
-    ~/.Brewfile:
-      if: '[ "$(uname)" "==" "Darwin" ]'
+  - link:
+      /usr/local/bin/cask-upgrade:
+        if: '[ "$(uname)" "==" "Darwin" ]'
+      ~/.config/alacritty/alacritty.toml:
+      ~/.config/nvim/coc-settings.json:
+      ~/.config/nvim/init.vim: vimrc
+      ~/.config/nvim/utils/format_yaml.py:
+      ~/.ctags:
+      ~/.dotfiles: ''
+      ~/.gitconfig:
+      ~/.gitignore:
+      ~/.p10k.zsh:
+      ~/.ripgreprc:
+      ~/.tmux.conf:
+      ~/.tmux/tmuxline.conf:
+      ~/.vim/coc-settings.json:
+      ~/.vimrc:
+      ~/.zshrc:
+      ~/.zshrc_scripts:
+      ~/.zshrc_zplug:
+      ~/.Brewfile:
+        if: '[ "$(uname)" "==" "Darwin" ]'
 
-- pip:
-    file: pip/requirements.txt
-    user: true    # Like --user
-    stdout: true  # Print the execution stdout
-    stderr: true  # Print the execution stderr
+  - pip:
+      file: pip/requirements.txt
+      user: true  # Like --user
+      stdout: true # Print the execution stdout
+      stderr: true # Print the execution stderr
 
-- shell:
-  - git submodule sync --recursive
+  - shell:
+      - git submodule sync --recursive
   # the following have to run after linking ~/.gitconfig
-  - git submodule update --init --recursive
-  - command: ./setup_mac.sh
-    description: Install dependecies for Mac
-    stdout: true
-    stderr: true
+      - git submodule update --init --recursive
+      - command: ./setup_mac.sh
+        description: Install dependecies for Mac
+        stdout: true
+        stderr: true
