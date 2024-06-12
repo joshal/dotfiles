@@ -3,10 +3,10 @@
         create: true
         relink: true
 
-  - clean: ['~', '~/.config', '/usr/local/bin/cask-upgrade']
+  - clean: ['~', '~/.config', '$HOMEBREW_PREFIX/bin/cask-upgrade']
 
   - link:
-      /usr/local/bin/cask-upgrade:
+      $HOMEBREW_PREFIX/bin/cask-upgrade:
         if: '[ "$(uname)" "==" "Darwin" ]'
       ~/.config/alacritty/alacritty.toml:
       ~/.config/nvim/coc-settings.json:
