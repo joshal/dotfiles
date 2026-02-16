@@ -1,0 +1,49 @@
+###
+# Initialize Zplug
+####
+
+# Check if zplug is installed
+if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+    source ~/.zplug/init.zsh && zplug update
+fi
+
+source ~/.zplug/init.zsh
+
+####
+# Plugs
+####
+
+# Let zplug manage zplug
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+zplug 'plugins/docker', from:oh-my-zsh
+zplug 'plugins/docker-compose', from:oh-my-zsh
+zplug 'plugins/git', from:oh-my-zsh
+zplug 'plugins/helm', from:oh-my-zsh
+zplug 'plugins/kubectl', from:oh-my-zsh, defer:2
+zplug 'plugins/ssh-agent', from:oh-my-zsh
+
+zplug 'zsh-users/zsh-completions'
+
+# Load all of the config files in oh-my-zsh.
+# This is the default behavior of oh-my-zsh, see oh-my-zsh.sh
+zplug 'lib/*', from:oh-my-zsh
+
+# Load theme file
+zplug romkatv/powerlevel10k, as:theme, depth:1
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+#####
+# Post-install parameters
+#####
+
+# Source plugins and add commands to $PATH
+zplug load
