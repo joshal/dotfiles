@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Install Homebrew if not present
+if ! command -v brew &> /dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Make Homebrew zsh the default shell
+ZSH_BIN="$(brew --prefix)/bin/zsh"
+if ! grep -Fxq "$ZSH_BIN" /etc/shells; then
+    echo "$ZSH_BIN" | sudo tee -a /etc/shells
+fi
+if [ "$SHELL" != "$ZSH_BIN" ]; then
+    chsh -s "$ZSH_BIN"
+fi
+{{- end }}
