@@ -1,0 +1,13 @@
+README.md
+LICENSE
+Brewfile
+Brewfile.lock.json
+
+{{ if not .is_work }}
+.zshrc_work
+.bazelrc
+.cc-dotfiles.bazelrc
+.sem.yaml
+.config/acli
+.config/confluent
+{{ end }}
