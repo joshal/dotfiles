@@ -1,0 +1,25 @@
+{
+  "diagnostic.messageTarget": "echo",
+  "go.goplsEnv": {
+    "GOFLAGS": "-tags=unit,integration"
+  },
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf",
+        "tfvars"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
+  "signature.target": "echo"
+}
