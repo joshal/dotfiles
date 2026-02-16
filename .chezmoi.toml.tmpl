@@ -1,0 +1,17 @@
+{{- $isWork := false -}}
+{{- if (env "CHEZMOI_IS_WORK") -}}
+{{-   $isWork = eq (env "CHEZMOI_IS_WORK") "true" -}}
+{{- else -}}
+{{-   $isWork = promptBoolOnce . "is_work" "Is this a work machine" -}}
+{{- end -}}
+
+{{- $name := "Joshal Daftari" -}}
+{{- $email := "joshal@users.noreply.github.com" -}}
+{{- if $isWork -}}
+{{-   $email = "jdaftari@confluent.io" -}}
+{{- end -}}
+
+[data]
+  is_work = {{ $isWork }}
+  name = {{ $name | quote }}
+  email = {{ $email | quote }}
