@@ -177,7 +177,7 @@ export PATH="$PATH:{{ .chezmoi.homeDir }}/.local/bin"
 #########
 eval "$(zoxide init zsh)"
 
-source {{ .chezmoi.homeDir }}/.config/broot/launcher/bash/br
+[ -f {{ .chezmoi.homeDir }}/.config/broot/launcher/bash/br ] && source {{ .chezmoi.homeDir }}/.config/broot/launcher/bash/br
 {{ if .is_work -}}
 export VAULT_ADDR=https://vault.cireops.gcp.internal.confluent.cloud
 alias vault_login="vault login -method=oidc -path=okta -no-print"
@@ -188,4 +188,4 @@ fpath=({{ .chezmoi.homeDir }}/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
