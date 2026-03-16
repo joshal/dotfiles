@@ -13,7 +13,6 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'antoinemadec/coc-fzf'
 Plug 'github/copilot.vim'
@@ -28,7 +27,6 @@ Plug 'edkolev/tmuxline.vim'                                                     
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
-Plug 'towolf/vim-helm'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
 Plug 'tsandall/vim-rego'
 Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
@@ -132,7 +130,6 @@ augroup filetypes
     autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
     autocmd FileType go setlocal noexpandtab
     autocmd FileType go nmap <silent> <leader>T :CocCommand go.test.toggle<CR>
-    autocmd FileType helm setlocal ts=2 sts=2 sw=2 expandtab
     autocmd FileType lprolog setlocal noexpandtab
     autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
     autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
