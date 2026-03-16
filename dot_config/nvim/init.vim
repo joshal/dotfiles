@@ -13,26 +13,26 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 Plug 'antoinemadec/coc-fzf'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'github/copilot.vim'
-Plug 'junegunn/fzf',
+Plug 'junegunn/fzf',                                                                 " fuzzy file search
     \ { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'morhetz/gruvbox'
-Plug 'sbdchd/neoformat'
-Plug 'scrooloose/nerdtree',
+Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
+Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
+Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code
+Plug 'scrooloose/nerdtree',                                                          " tree explorer plugin, on demand load
     \ { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
-Plug 'Xuyuanp/nerdtree-git-plugin',
+Plug 'Xuyuanp/nerdtree-git-plugin',                                                  " NERDTree showing git status
     \ { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'edkolev/tmuxline.vim'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                   " a class outline viewer for Vim
+Plug 'edkolev/tmuxline.vim'                                                           " tmux statusline generator
 Plug 'benomahony/uv.nvim'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'junegunn/vim-easy-align'                                                        " easy-to-use Vim alignment plugin
+Plug 'tpope/vim-fugitive'                                                             " git wrapper
+Plug 'airblade/vim-gitgutter'                                                         " shows a git diff in the gutter
+Plug 'jeffkreeftmeijer/vim-numbertoggle'                                              " toggles between hybrid and absolute line numbers
 Plug 'tsandall/vim-rego'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'                                                 " hjkl between vim split and tmux panes
 
 " Add plugins to &runtimepath
 call plug#end()
