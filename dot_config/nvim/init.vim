@@ -404,4 +404,3 @@ call coc#config('python', {
 
 hi link CocMenuSel PmenuSel
 hi link CocSearch GruvboxYellow
-
