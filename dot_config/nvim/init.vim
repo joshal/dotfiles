@@ -31,7 +31,6 @@ Plug 'junegunn/vim-easy-align'                                                  
 Plug 'tpope/vim-fugitive'                                                             " git wrapper
 Plug 'airblade/vim-gitgutter'                                                         " shows a git diff in the gutter
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                              " toggles between hybrid and absolute line numbers
-Plug 'tsandall/vim-rego'
 Plug 'christoomey/vim-tmux-navigator'                                                 " hjkl between vim split and tmux panes
 
 " Add plugins to &runtimepath
@@ -138,7 +137,6 @@ augroup filetypes
     autocmd FileType markdown setlocal spell spelllang=en_us
     autocmd FileType proto setlocal ts=2 sts=2 sw=2 tw=79 expandtab
     autocmd FileType python setlocal spell spelllang=en_us
-    autocmd FileType rego setlocal ts=4 sts=4 sw=4 expandtab
     autocmd FileType rst setlocal spell spelllang=en_us
     autocmd FileType text setlocal spell spelllang=en_us
     autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
@@ -287,13 +285,6 @@ let g:neoformat_enabled_terraform_vars = ['terraform']
 let g:shfmt_opt="-i 2 -ci -sr"
 "" use ;f to open neoformat
 map <leader>f :Neoformat<CR>
-"" opa repo formatter
-let g:neoformat_rego_conftest = {
-    \ 'exe': 'conftest',
-    \ 'args': ['fmt'],
-    \ 'replace': 1,
-    \ }
-let g:neoformat_enabled_rego = ['conftest']
 let g:neoformat_hcl_terragrunt = {
     \ 'exe': 'terragrunt',
     \ 'args': ['hcl', 'format', '--file'],
