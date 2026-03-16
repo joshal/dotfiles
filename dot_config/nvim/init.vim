@@ -12,25 +12,27 @@ let tmpDir = $HOME . "/.tmpvim"
 let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
-" Make sure you use single quotes
-Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'antoinemadec/coc-fzf'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'github/copilot.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                    " fuzzy file search
-Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
-Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
-Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                  " a class outline viewer for Vim
-Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
-Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
-Plug 'tpope/vim-fugitive'                                                            " git wrapper
-Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
-Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
-Plug 'tsandall/vim-rego'
-Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
+Plug 'junegunn/fzf',
+    \ { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
+Plug 'sbdchd/neoformat'
+Plug 'scrooloose/nerdtree',
+    \ { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'Xuyuanp/nerdtree-git-plugin',
+    \ { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'edkolev/tmuxline.vim'
 Plug 'benomahony/uv.nvim'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'tsandall/vim-rego'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Add plugins to &runtimepath
 call plug#end()
