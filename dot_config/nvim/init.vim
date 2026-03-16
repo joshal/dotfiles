@@ -28,13 +28,10 @@ Plug 'edkolev/tmuxline.vim'                                                     
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
-Plug 'rhysd/vim-grammarous'                                                          " grammar checker
 Plug 'towolf/vim-helm'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'                                             " Toggles between hybrid and absolute line numbers automatically
 Plug 'tsandall/vim-rego'
-Plug 'lifepillar/vim-solarized8'                                                     " solarized colorscheme for true-color terminals
 Plug 'christoomey/vim-tmux-navigator'                                                " hjkl between vim split and tmux panes
-Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'benomahony/uv.nvim'
 
 " Add plugins to &runtimepath
@@ -418,5 +415,3 @@ call coc#config('python', {
 hi link CocMenuSel PmenuSel
 hi link CocSearch GruvboxYellow
 
-""" vim-emoji
-set completefunc=emoji#complete
