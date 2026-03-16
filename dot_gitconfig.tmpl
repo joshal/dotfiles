@@ -1,44 +1,44 @@
 [credential]
-        helper = osxkeychain
+	helper = osxkeychain
 [color]
-        ui = true
+	ui = true
 [core]
-        editor = $(brew --prefix)/bin/nvim
-        excludesfile = ~/.gitignore
-        ignorecase = false
+	editor = $(brew --prefix)/bin/nvim
+	excludesfile = ~/.gitignore
+	ignorecase = false
 {{- if .is_work }}
 	hooksPath = /usr/local/gitconfig/hooks
 {{- end }}
 	pager = delta
 [diff]
-        tool = vimdiff
+	tool = vimdiff
 [difftool]
-        prompt = false
+	prompt = false
 [fetch]
-        prune = true
-        recurseSubmodules = true
+	prune = true
+	recurseSubmodules = true
 [include]
-        path = .gitlocal
+	path = .gitlocal
 [interactive]
-        diffFilter = delta --color-only --features=interactive
+	diffFilter = delta --color-only --features=interactive
 [merge]
-        tool = vimdiff
+	tool = vimdiff
 	conflictStyle = zdiff3
 [mergetool]
-        prompt = true
+	prompt = true
 [mergetool "vimdiff"]
-        cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 [pull]
-        rebase = true
+	rebase = true
 [push]
-        default = simple
+	default = simple
 [rebase]
-        instructionFormat = %s%nexec GIT_COMMITTER_DATE=\"%cI\" GIT_COMMITTER_NAME=\"%cN\" GIT_COMMITTER_EMAIL=\"%cE\" git commit --amend --no-edit%n
+	instructionFormat = %s%nexec GIT_COMMITTER_DATE=\"%cI\" GIT_COMMITTER_NAME=\"%cN\" GIT_COMMITTER_EMAIL=\"%cE\" git commit --amend --no-edit%n
 [rerere]
-        enabled = true
+	enabled = true
 [user]
-        email = {{ .email }}
-        name = {{ .name }}
+	email = {{ .email }}
+	name = {{ .name }}
 {{- if .is_work }}
 [safe]
 	directory = /repo
@@ -50,7 +50,7 @@
 {{- end }}
 [delta]
 	navigate = true
-        syntax-theme = Solarized (light)
+	syntax-theme = Solarized (light)
 {{- if .is_work }}
 [url "🛑 AIRLOCK SECURITY BLOCK: Git wrapper not on PATH. Call wrapper directly with /usr/local/libexec/airlock-agent/git, or see go/airlock-error.  "]
 	insteadOf ={{ " " }}
