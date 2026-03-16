@@ -13,7 +13,6 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'dense-analysis/ale'
 Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'antoinemadec/coc-fzf'
@@ -22,14 +21,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }               
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
-Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
-Plug 'Xuyuanp/nerdtree-git-plugin'                                                   " A plugin of NERDTree showing git status
-Plug 'neovim/nvim-lspconfig'
-Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }                                  " tern based javascript editing
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                  " a class outline viewer for Vim
 Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
-" Plug 'bling/vim-airline'                                                             " lean & mean status/tabline for vim that's light as air
-" Plug 'vim-airline/vim-airline-themes'                                                " themes for vim-airline plugin
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
 Plug 'airblade/vim-gitgutter'                                                        " shows a git diff in the gutter
@@ -48,12 +43,6 @@ call plug#end()
 " ==========================================================
 " Basic Settings
 " ==========================================================
-set nocompatible                " make vim more useful
-syntax on                       " syntax highlighing
-filetype on                     " try to detect filetypes
-filetype plugin indent on       " enable loading indent file; required for vundle
-set hidden                      " allows you to deal with multiple unsaved buffers simultaneously
-                                " without resorting to misusing tabs
 let mapleader=";"               " change the leader to be a colon vs slash
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=128
@@ -68,20 +57,15 @@ colorscheme gruvbox
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
 set title                       " show title in console title bar
-set wildmenu                    " Menu completion in command mode on <Tab>
 set wildmode=full               " <tab> cycles between all matching choices.
-set cmdheight=1                 " height of command line
 
 """ Moving Around/Editing
 set cursorline                  " have a line indicate the cursor location
-set ruler                       " show the cursor position all the time
 set nostartofline               " Prevent the cursor from changing the current column when jumping to other lines
 set virtualedit=block           " Let cursor move past the last char in <C-v> mode
 set scrolloff=3                 " Keep 3 context lines above and below the cursor
-set backspace=2                 " Allow backspacing over autoindent, EOL, and BOL
 set showmatch                   " Briefly jump to a paren once it's balanced
 set linebreak                   " don't wrap textin the middle of a word
-set autoindent                  " always set autoindenting on
 set smartindent                 " use smart indent if there is no indent file
 set textwidth=99                " lines longer than 99 columns will be broken
 set tabstop=4                   " <tab> inserts 4 spaces
@@ -94,12 +78,9 @@ set clipboard=unnamed           " yy, D, P, etc. copy to clipboard
 """ Searching
 set ignorecase                  " perform a case-insensitive search
 set smartcase                   " use case-sensitive search if any caps used
-set hlsearch                    " search highlighting
-set incsearch                   " incremental search
 set inccommand=nosplit          " do not show preview window while incremental search
 
 """ Messages, Info, Status
-set laststatus=2                " Always show statusline, even if only 1 window
 "" don't bell or blink
 set noerrorbells
 set vb t_vb=
@@ -143,30 +124,36 @@ xnoremap p pgvy
 " Settings (non-plugin)
 " ==========================================================
 
-autocmd BufReadPost *gitlocal set filetype=gitconfig
-autocmd BufRead,BufNewFile *.tfvars set filetype=terraform
+augroup filetypes
+    autocmd!
+    autocmd BufReadPost *gitlocal set filetype=gitconfig
+    autocmd BufRead,BufNewFile *.tfvars set filetype=terraform
 
-""" Change local filetype settings (keep alphabetically arranged by file type)
-autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
-autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
-autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
-autocmd FileType go setlocal noexpandtab
-autocmd FileType go nmap <silent> <leader>T :CocCommand go.test.toggle<CR>
-autocmd FileType helm setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType lprolog setlocal noexpandtab
-autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType markdown setlocal spell spelllang=en_us
-autocmd FileType proto setlocal ts=2 sts=2 sw=2 tw=79 expandtab
-autocmd FileType python setlocal spell spelllang=en_us
-autocmd FileType rego setlocal ts=4 sts=4 sw=4 expandtab
-autocmd FileType rst setlocal spell spelllang=en_us
-autocmd FileType text setlocal spell spelllang=en_us
-autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 tw=79 expandtab
+    """ Change local filetype settings (keep alphabetically arranged by file type)
+    autocmd FileType gitcommit setlocal spell spelllang=en_us synmaxcol=0
+    autocmd FileType gitconfig setlocal ts=8 sts=8 sw=8
+    autocmd FileType groovy setlocal ts=3 sts=3 sw=3 expandtab
+    autocmd FileType go setlocal noexpandtab
+    autocmd FileType go nmap <silent> <leader>T :CocCommand go.test.toggle<CR>
+    autocmd FileType helm setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType lprolog setlocal noexpandtab
+    autocmd FileType java setlocal ts=3 sts=3 sw=3 textwidth=120
+    autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType markdown setlocal spell spelllang=en_us
+    autocmd FileType proto setlocal ts=2 sts=2 sw=2 tw=79 expandtab
+    autocmd FileType python setlocal spell spelllang=en_us
+    autocmd FileType rego setlocal ts=4 sts=4 sw=4 expandtab
+    autocmd FileType rst setlocal spell spelllang=en_us
+    autocmd FileType text setlocal spell spelllang=en_us
+    autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 tw=79 expandtab
+augroup END
 
-" Save buffer when text is changed
-autocmd InsertLeave * silent write
+augroup autosave
+    autocmd!
+    " Save buffer when text is changed
+    autocmd InsertLeave * silent write
+augroup END
 
 " ==========================================================
 " Custom Functions
@@ -231,12 +218,6 @@ endfunction
 " ==========================================================
 " Plugin Settings
 " ==========================================================
-
-""" ale
-let g:ale_virtualenv_dir_names = []
-let b:ale_linters = ['flake8']
-let g:ale_disable_lsp = 1
-let g:ale_python_flake8_options = "--max-line-length=99"
 
 """ copilot.vim
 let g:copilot_filetypes = {
@@ -337,27 +318,13 @@ let g:neoformat_enabled_python = ['ruff_format', 'ruff_check']
 let g:neoformat_run_all_formatters = 1
 
 """ NERDTree
-"" open a NERDTree automatically when vim starts up
-" autocmd VimEnter * NERDTree
-"" move the cursor to the file editing area and not nerdtree
-" autocmd VimEnter * wincmd p
-"" open a nerdtree automatically when vim starts up if no files were specified
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if (argc() == 0 && !exists("s:std_in")) |  execute 'NERDTree' | endif
 "" use ;n to open nerdtree
 map <leader>n :call ToggleNERDTreeFind()<CR>
-"" close vim if nerdtree is the only window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-""" nvim-lspconfig
-"vim.lsp.config('ruff', {
-"  init_options = {
-"    settings = {
-"    }
-"  }
-"})
-"
-"vim.lsp.enable('ruff')
+augroup nerdtree_close
+    autocmd!
+    "" close vim if nerdtree is the only window
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 
 """ tagbar
 "" open Tagbar with ;t
@@ -366,16 +333,6 @@ nnoremap <leader>t :TagbarToggle<CR>
 """ tmuxline
 ""
 let g:tmuxline_powerline_separators = 0
-
-""" vim-airline
-"" automatically populate the g:airline_symbols dictionary with the powerline symbols
-let g:airline_powerline_fonts = 1
-"" set the theme for airline
-let g:airline_theme='gruvbox'
-"" automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
-" disable tmuxline extention for airline; we load our own tmux statusbar config
-let g:airline#extensions#tmuxline#enabled = 0
 
 """ vim-easy-align
 "" Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -415,11 +372,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -436,8 +389,11 @@ endfunction
 
 nmap <Esc> :call coc#float#close_all() <CR>
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup coc_highlight
+    autocmd!
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that

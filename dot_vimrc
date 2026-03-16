@@ -13,7 +13,6 @@ let vimPluggedHomeDir = vimHomeDir . '/plugged'
 call plug#begin(vimPluggedHomeDir)
 
 " Make sure you use single quotes
-Plug 'dense-analysis/ale'
 Plug 'pearofducks/ansible-vim'                                                       " additional support for Ansible in vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
 Plug 'antoinemadec/coc-fzf'
@@ -22,10 +21,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }               
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
 Plug 'morhetz/gruvbox'                                                               " retro groove color scheme for Vim
 Plug 'sbdchd/neoformat'                                                              " a (Neo)vim plugin for formatting code.
-Plug 'scrooloose/nerdtree'                                                           " tree explorer plugin, on demand load
-Plug 'Xuyuanp/nerdtree-git-plugin'                                                   " A plugin of NERDTree showing git status
-Plug 'neovim/nvim-lspconfig'
-Plug 'majutsushi/tagbar'                                                             " a class outline viewer for Vim
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind', 'NERDTreeClose'] }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                  " a class outline viewer for Vim
 Plug 'edkolev/tmuxline.vim'                                                          " tmux statusline generator
 Plug 'junegunn/vim-easy-align'                                                       " easy-to-use Vim alignment plugin
 Plug 'tpope/vim-fugitive'                                                            " git wrapper
@@ -220,11 +218,6 @@ endfunction
 " ==========================================================
 " Plugin Settings
 " ==========================================================
-
-""" ale
-let g:ale_virtualenv_dir_names = []
-let g:ale_linters = {'python': ['ruff']}
-let g:ale_disable_lsp = 1
 
 """ copilot.vim
 let g:copilot_filetypes = {
