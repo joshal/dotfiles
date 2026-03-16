@@ -15,4 +15,30 @@ fi
 if [ "$SHELL" != "$ZSH_BIN" ]; then
     chsh -s "$ZSH_BIN"
 fi
+
+# Map Caps Lock to Escape via hidutil LaunchAgent
+PLIST="$HOME/Library/LaunchAgents/com.local.CapsLockToEscape.plist"
+if [ ! -f "$PLIST" ]; then
+    mkdir -p "$HOME/Library/LaunchAgents"
+    cat > "$PLIST" << 'PLISTEOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.local.CapsLockToEscape</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/hidutil</string>
+        <string>property</string>
+        <string>--set</string>
+        <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029}]}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+PLISTEOF
+    launchctl load "$PLIST"
+fi
 {{- end }}
