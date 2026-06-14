@@ -7,6 +7,13 @@ if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# Ensure Homebrew is on PATH (not set in non-interactive shells on Apple Silicon).
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # Make Homebrew zsh the default shell
 ZSH_BIN="$(brew --prefix)/bin/zsh"
 if ! grep -Fxq "$ZSH_BIN" /etc/shells; then
