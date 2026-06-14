@@ -6,9 +6,6 @@
 	editor = $(brew --prefix)/bin/nvim
 	excludesfile = ~/.gitignore
 	ignorecase = false
-{{- if .is_work }}
-	hooksPath = /usr/local/gitconfig/hooks
-{{- end }}
 	pager = delta
 [diff]
 	tool = vimdiff
@@ -20,6 +17,10 @@
 	writeCommitGraph = false
 [include]
 	path = .gitlocal
+{{- if .is_work }}
+[include]
+	path = .gitconfig_work
+{{- end }}
 [interactive]
 	diffFilter = delta --color-only --features=interactive
 [merge]
@@ -40,24 +41,9 @@
 [user]
 	email = {{ .email }}
 	name = {{ .name }}
-{{- if .is_work }}
-[safe]
-	directory = /repo
-[filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-{{- end }}
 [delta]
 	navigate = true
 	syntax-theme = Solarized (light)
-{{- if .is_work }}
-[url "🛑 AIRLOCK SECURITY BLOCK: Git wrapper not on PATH. Call wrapper directly with /usr/local/libexec/airlock-agent/git, or see go/airlock-error.  "]
-	insteadOf ={{ " " }}
-[protocol]
-	allow = never
-{{- end }}
 [maintenance]
 	auto = false
 [gc]

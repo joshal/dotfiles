@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+{{ if .is_work -}}
+# Apply work-specific dotfiles from ~/.work-external (cloned by .chezmoiexternal.toml.tmpl).
+# Triggered whenever the work-external repo contents change.
+WORK_SOURCE="${HOME}/.work-external"
+if [ -d "${WORK_SOURCE}" ]; then
+    chezmoi apply --source "${WORK_SOURCE}"
+fi
+{{- end }}

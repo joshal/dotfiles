@@ -148,10 +148,6 @@ export PATH="$PATH:{{ .chezmoi.homeDir }}/.local/bin"
 eval "$(zoxide init zsh)"
 
 [ -f {{ .chezmoi.homeDir }}/.config/broot/launcher/bash/br ] && source {{ .chezmoi.homeDir }}/.config/broot/launcher/bash/br
-{{ if .is_work -}}
-export VAULT_ADDR=https://vault.cireops.gcp.internal.confluent.cloud
-alias vault_login="vault login -method=oidc -path=okta -no-print"
-{{- end }}
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=({{ .chezmoi.homeDir }}/.docker/completions $fpath)
 # End of Docker CLI completions
