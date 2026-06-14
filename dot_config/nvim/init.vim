@@ -22,7 +22,6 @@ call plug#begin(vimPluggedHomeDir)
 
 Plug 'antoinemadec/coc-fzf'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                                      " intellisense engine for neovim
-Plug 'github/copilot.vim'
 Plug 'junegunn/fzf',                                                                 " fuzzy file search
     \ { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                                                              " fzf + vim (a replacement for ctrl+p)
@@ -220,13 +219,6 @@ endfunction
 " ==========================================================
 " Plugin Settings
 " ==========================================================
-
-""" copilot.vim
-let g:copilot_filetypes = {
-    \ 'gitcommit': v:true,
-    \ 'markdown': v:true,
-    \ 'yaml': v:true
-    \ }
 
 """ fzf.vim
 "" disable statusline overwriting

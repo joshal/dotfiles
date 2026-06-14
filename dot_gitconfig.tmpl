@@ -17,6 +17,7 @@
 [fetch]
 	prune = true
 	recurseSubmodules = true
+	writeCommitGraph = false
 [include]
 	path = .gitlocal
 [interactive]
@@ -57,3 +58,11 @@
 [protocol]
 	allow = never
 {{- end }}
+[maintenance]
+	auto = false
+[gc]
+	auto = 0
+[init]
+	defaultBranch = main
+[advice]
+	detachedHead = false

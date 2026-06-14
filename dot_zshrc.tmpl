@@ -18,9 +18,28 @@ if [ -f ~/.zshrc_scripts ]; then
     source ~/.zshrc_scripts
 fi
 
-if [ -f ~/.zshrc_zplug ]; then
-    source ~/.zshrc_zplug
+# zimfw — fast static-init plugin manager (replaced zplug, see ~/.zimrc).
+# ZSH_CACHE_DIR gives the oh-my-zsh kubectl/helm plugins a writable spot for
+# their generated completion caches when run outside a full omz install.
+ZIM_HOME="$HOME/.zim"
+export ZSH_CACHE_DIR="${ZIM_HOME}/cache"
+[[ -d "${ZSH_CACHE_DIR}/completions" ]] || mkdir -p "${ZSH_CACHE_DIR}/completions"
+
+# Download zimfw if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
 fi
+
+# Rebuild init.zsh when missing or older than ~/.zimrc.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+    source ${ZIM_HOME}/zimfw.zsh init
+fi
+
+# Defer SSH key loading until first use (avoids ~65ms _add_identities on every pane open).
+zstyle :omz:plugins:ssh-agent lazy yes
+
+source ${ZIM_HOME}/init.zsh
 
 # User configuration
 
@@ -71,58 +90,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Default options for fzf
 export FZF_DEFAULT_OPTS="--reverse --inline-info"
 
-#########
-# jenv
-#########
-
-export JENV_ROOT="$HOME/.jenv"
-if which jenv > /dev/null; then
-    # initialize jenv
-    eval "$(jenv init - --no-rehash)"
-    # start background rehashing process, see
-    # https://github.com/gcuisinier/jenv/issues/148#issuecomment-230259636
-    (jenv rehash &) 2> /dev/null
-    # XXX: There seems to be an issue with maven where in the M2_HOME variable is set by default and
-    # pointing to a wrong location. We use the maven plugin enabled with jenv so that maven can find
-    # the JAVA_HOME variable it needs. The jenv enabled maven fails because of the wrong M2_HOME
-    # environment variable. Hence we unset it here.
-    # https://github.com/gcuisinier/jenv#plugins
-    unset M2_HOME
-fi
-
-#########
-# pyenv
-#########
-
-export PYENV_ROOT="$HOME/.pyenv"
-if command -v pyenv > /dev/null; then
-    # initialize pyenv
-    eval "$(pyenv init --path)"
-    # initialize pyenv virtualenv
-    eval "$(pyenv virtualenv-init -)"
-    # install virtualenvwrapper
-    # pyenv virtualenvwrapper
-
-    # As suggested with YCM
-    # https://github.com/Valloric/YouCompleteMe#i-get-fatal-python-error-pythreadstate_get-no-current-thread-on-startup
-    pyenv() {
-        case $* in
-            install* ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include -I$(xcrun --show-sdk-path)/usr/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv install "$@" ;;
-            doctor ) shift 1; command env CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" PYTHON_CONFIGURE_OPTS="--enable-framework --enable-unicode=ucs2" pyenv doctor ;;
-            * ) command pyenv "$@" ;;
-        esac
-    }
-fi
-
-#######
-# rbenv
-#######
-
-export RBENV_ROOT="$HOME/.rbenv"
-if which rbenv > /dev/null; then
-    # initialize rbenv
-    eval "$(rbenv init -)"
-fi
+# jenv / pyenv / rbenv intentionally removed — `mise activate zsh` (below) handles
+# Java, Python, and Ruby version management. Restore the old blocks from
+# ~/.zshrc.bak.* if mise stops being used.
 
 #######
 # pip
@@ -182,10 +152,24 @@ eval "$(zoxide init zsh)"
 export VAULT_ADDR=https://vault.cireops.gcp.internal.confluent.cloud
 alias vault_login="vault login -method=oidc -path=okta -no-print"
 {{- end }}
-autoload -U compinit; compinit
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=({{ .chezmoi.homeDir }}/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
 # End of Docker CLI completions
+
+# compinit is handled by zimfw's `completion` module (single cached call).
+
+# Un-export FPATH so it never leaks into the environment. When FPATH is
+# exported, long-running parents (e.g. the tmux server) cache the version-
+# pinned Homebrew Cellar path (.../Cellar/zsh/X.Y/share/zsh/functions). A
+# `brew upgrade zsh` deletes that dir, and every new tmux shell then inherits
+# a dead FPATH, breaking autoloads (colors, compinit, add-zsh-hook, ...).
+# Keep the `fpath` array; just stop propagating it to child processes.
+typeset +x FPATH
+
 eval "$(mise activate zsh)"
+
+# Added by sonarqube-cli installer
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
+
+# Option+Delete deletes the previous word
+bindkey "^[^?" backward-kill-word

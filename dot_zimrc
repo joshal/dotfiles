@@ -1,0 +1,37 @@
+# ~/.zimrc — module list for zimfw. Run `zimfw install` after editing.
+# Migrated from zplug (~/.zshrc_zplug.bak.20260602) on 2026-06-02.
+
+#
+# Zimfw native modules (replace oh-my-zsh `lib/*`)
+#
+zmodule environment          # sane shell options (history, globbing, etc.)
+zmodule input                # key bindings (emacs/vi, history-substring nav)
+zmodule utility              # ls colors, common aliases, mkcd-style helpers
+
+#
+# Extra completions (add to fpath; must precede the completion module)
+#
+zmodule zsh-users/zsh-completions --fpath src
+
+#
+# completion — runs a single cached compinit. Keep AFTER every fpath addition
+# and BEFORE any plugin that calls `compdef` (the oh-my-zsh plugins below).
+#
+zmodule completion
+
+#
+# Oh-my-zsh plugins (same set previously loaded via zplug). These call
+# `compdef` at load time and self-source their completions, so they must come
+# after the completion module. --name disambiguates the shared ohmyzsh repo.
+#
+zmodule ohmyzsh/ohmyzsh --root plugins/git --name ohmyzsh/git
+zmodule ohmyzsh/ohmyzsh --root plugins/docker --name ohmyzsh/docker
+zmodule ohmyzsh/ohmyzsh --root plugins/docker-compose --name ohmyzsh/docker-compose
+zmodule ohmyzsh/ohmyzsh --root plugins/helm --name ohmyzsh/helm
+zmodule ohmyzsh/ohmyzsh --root plugins/kubectl --name ohmyzsh/kubectl
+zmodule ohmyzsh/ohmyzsh --root plugins/ssh-agent --name ohmyzsh/ssh-agent
+
+#
+# Prompt
+#
+zmodule romkatv/powerlevel10k --use degit
